@@ -1,0 +1,25 @@
+
+*{
+    font-family: 'Open Sans', sans-serif;
+}
+.login-form-container{
+    width: 50%;
+    margin: 0 auto;
+}
+
+.login-form input{
+    min-width: 300px;
+    padding: 4px 0;
+    margin: 10px 0;
+}
+
+.login-form{
+    margin-top:50px;
+    text-align: center;
+}
+
+.login-form .submit-button{
+    background-color: #774B9E; /* DD color */
+    color: white;
+    font-weight: bold;
+}
