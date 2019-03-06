@@ -1,7 +1,7 @@
 <?php
-$servername = 'db4free.net';
-$username = "pauviz1";
-$password = "pauviz1admin";
+$servername = 'localhost';
+$username = "root";
+$password = "";
 $database = "dd_pauliaus";
 
 $conn = @new mysqli($servername, $username, $password, $database);
@@ -13,7 +13,5 @@ if ($conn->connect_error) {
 </div>';
 
 }
-
-
 
 ?>

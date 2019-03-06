@@ -2,8 +2,6 @@
 session_start();
 include "connect.php";
 
-echo password_hash("pauviz1admin",PASSWORD_DEFAULT);
-
 if( isset($_POST['username']) && isset($_POST['password']) )
 {
     $username = $_POST["username"];
