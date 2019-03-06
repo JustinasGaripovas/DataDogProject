@@ -1,7 +1,9 @@
 <?php session_start();
 
 if (isset( $_GET["status"])){
-    echo "<script> alert('Unauthorized login') </script>";
+    $status = $_GET["status"];
+    if ( $status === "unauthorized") echo "<script> alert('Unauthorized login') </script>";
+    if ( $status === "incorrect") echo "<script> alert('Incorrect credentials') </script>";
 }
 
 
