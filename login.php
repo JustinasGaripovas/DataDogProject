@@ -7,9 +7,7 @@ if( isset($_POST['username']) && isset($_POST['password']) )
     $username = $_POST["username"];
     $password = $_POST["password"];
 
-    $conn = establishConnection("global");
 
-    echo var_dump($conn);
 
     $sql = "SELECT username, password_hash FROM users WHERE username='". $username ."'";
     $result = $conn->query($sql)->fetch_assoc();

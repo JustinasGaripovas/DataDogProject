@@ -1,40 +1,37 @@
 <?php
 
+define("LOCAL_SERVERNAME", "localhost");
+define("LOCAL_USERNAME", "root");
+define("LOCAL_PASSWORD", "");
+define("LOCAL_DATABASE", "dd_pauliaus");
+
+define("GLOBAL_SERVERNAME", "localhost");
+define("GLOBAL_USERNAME", "root");
+define("GLOBAL_PASSWORD", "");
+define("GLOBAL_DATABASE", "dd_pauliaus");
+
+define("CONNECTION_TYPE", "global");
+
+$conn = establishConnection(CONNECTION_TYPE);
 
 function establishConnection($type)
 {
 
-    $username = "pauviz1";
-    $database = "dd_pauliaus";
+    switch ($type){
+        case "global":
+            $conn = @new mysqli(GLOBAL_SERVERNAME, GLOBAL_USERNAME, GLOBAL_PASSWORD, GLOBAL_DATABASE);
+            break;
+
+        case "local":
+        default:
+        $conn = @new mysqli(LOCAL_SERVERNAME, LOCAL_USERNAME, LOCAL_PASSWORD, LOCAL_DATABASE);
+            break;
 
 
-   if ($type === "global") {
-       $servername = 'db4free.net';
-       $password = "pauviz1admin";
     }
-   else if ($type === "local") {
-        $servername = 'localhost';
-        $username = "root";
-        $password = "";
-    }
 
-    $connection = @new mysqli($servername, $username, $password, $database);
-    if ($connection->connect_error) {
-        echo '<div style="width:100%"">
-        <h3>Klaida!</h3>
-         <p>Nepavyko prisijungti prie MySQL.</p>
-        </div>';
-    }
-    return $connection;
 
-   /* if ($conn->connect_error) {
-        echo '<div style="width:100%"">
-        <h3>Klaida!</h3>
-         <p>Nepavyko prisijungti prie MySQL.</p>
-        </div>';
-
-    }*/
-
+    return $conn;
 
 }
 
