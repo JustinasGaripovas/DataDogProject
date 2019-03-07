@@ -37,11 +37,13 @@
 }
 
 
-.login-form-logos img:nth-child(1){
-    max-width: 140px;
-}
 .login-form-logos img:nth-child(2){
-    max-width: 100px;
+    max-width: 118px;
+    margin-left: 5px;
+}
+.login-form-logos img:nth-child(1){
+    max-width: 80px;
+    margin-right: 5px;
 }
 
 .login-form-container form{

@@ -20,8 +20,9 @@ if (isset( $_GET["status"])){
 <div class="login-form-container">
 
     <div class="login-form-logos">
-        <img src="Resources/ktu-logo.png" >
         <img src="Resources/dd-logo.png" >
+        <img src="Resources/ktu-logo.png" >
+
     </div>
     <form method="POST" class="login-form" action="login.php" >
         <input type="text" name="username" placeholder="Username" required>
