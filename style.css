@@ -3,14 +3,26 @@
     font-family: 'Open Sans', sans-serif;
 }
 .login-form-container{
-    width: 50%;
-    margin: 0 auto;
+   position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    min-width: 400px;
 }
 
+.login-form-container *{
+    text-align: center;
+}
 .login-form input{
     min-width: 300px;
     padding: 4px 0;
     margin: 10px 0;
+}
+
+.login-form .submit-button{
+    min-width: 0px;
+    width: 150px;
+
 }
 
 .login-form{
@@ -22,4 +34,21 @@
     background-color: #774B9E; /* DD color */
     color: white;
     font-weight: bold;
+}
+
+
+.login-form-logos img:nth-child(1){
+    max-width: 140px;
+}
+.login-form-logos img:nth-child(2){
+    max-width: 100px;
+}
+
+.login-form-container form{
+    margin-top: 10px;
+}
+.login-form-logos{
+    display:flex;
+    align-items: center;
+    justify-content: center;
 }

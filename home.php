@@ -13,7 +13,7 @@ include "login_check.php";
 
 <body>
 
-<p> Home page, only logged in users should see this</p>
+<p style="text-align: center"> Home page, only logged in users should see this</p>
 
 </body>
 </html>
