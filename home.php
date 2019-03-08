@@ -8,7 +8,7 @@ include "login_check.php";
 
 
 <head>
-
+    <?php include("header.php"); ?>
 </head>
 
 <body>

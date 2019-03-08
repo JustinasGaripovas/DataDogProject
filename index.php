@@ -10,10 +10,12 @@ if (isset( $_GET["status"])){
 ?>
 <html>
 
-<title> DD | PHP Homework</title>
+
+
 <head>
-    <link rel="stylesheet" type="text/css" href="style.css?ver=0.1">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+    <?php include("header.php"); ?>
+
 </head>
 <body>
 
