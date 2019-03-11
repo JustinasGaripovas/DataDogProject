@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
+
+body{
+    font-family: 'Quicksand',serif;
+}
+
+.login_form{
+    position: fixed;
+    padding: 10px 15px 15px 15px;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%,-50%);
+    text-align: center;
+    background: #d6f5d6;
+
+}
+
+
+.login_block{
+    padding: 10px 20px 5px 20px;
+}
+
+.login_block input {
+    margin: 2.5px;
+}
+
+.login_block form {
+   background: #d6f5d6;
+}
+
+.login_block input:not([type=submit]) {
+    text-align: left;
+    padding: 5px;
+    width: 200px;
+    transition: all ease-out 0.3s;
+    text-shadow: 0 0 0 black;
+
+}
+
+.login_block input:focus:not([type=submit]) {
+    text-align: center;
+    color: transparent;
+    outline: none;
+    width: 230px;
+}
+
+.login_block input:hover:not([type=submit]) {
+    text-align: center;
+    color: transparent;
+    outline: none;
+    width: 240px;
+}
+
+.login_block .submit_button {
+    padding: 6px;
+    width: 200px;
+    border: none;
+    background: #77dd77;
+    transition: all ease-out 0.2s;
+}
+
+.login_block .submit_button:hover {
+    width: 220px;
+    padding: 8px;
+    border: #5cd65c;
+    background: #5cd65c;
+}
