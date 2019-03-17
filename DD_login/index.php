@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <?php
-require_once('User.php');
-$users = array(new User('email1', 'passw1'), new User('email2', 'passw2'), new User('email3', 'passw3'));
+//require_once('User.php');
+//$users = array(new User('email1', 'passw1'), new User('email2', 'passw2'), new User('email3', 'passw3'));
+
+$conn = new mysqli('localhost', 'root', '', 'login');
+
+if($conn->connect_error){
+    die('Connection failed: ' . $conn->connect_error);
+}
 
 session_start();
 if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){
@@ -14,24 +20,28 @@ if(isset($_POST['email']) && isset($_POST['password'])){
     $password = $_POST['password'];
     $email_found = false;
 
-    for($i = 0; $i < count($users); $i++){
-        if($email === $users[$i]->user_email && password_verify($password, $users[$i]->user_password)){
+    $sql = "SELECT * FROM users WHERE email = '$email'";
+
+    $result = $conn->query($sql);
+
+    if($result->num_rows == 0){
+        echo 'email is not registered';
+        die;
+    }
+    else{
+        $row = $result->fetch_assoc();
+        if(!password_verify($password, $row['password'])){
+            echo 'wrong password';
+        }
+        else{
             $_SESSION['loggedin'] = true;
             $_SESSION['email'] = $email;
-            $email_found = true;
             header('Location: loggedIn.php');
-            break;
         }
-        else if($email === $users[$i]->user_email){
-            $email_found = true;
-            echo "wrong password";
-            break;
-        }
-    }
-    if($email_found == false){
-        echo "wrong email";
     }
 }
+
+$conn->close();
 ?>
 
 <html>
