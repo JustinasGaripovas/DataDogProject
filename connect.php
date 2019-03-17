@@ -10,7 +10,7 @@ define("GLOBAL_USERNAME", "root");
 define("GLOBAL_PASSWORD", "");
 define("GLOBAL_DATABASE", "dd_pauliaus");
 
-define("CONNECTION_TYPE", "global");
+define("CONNECTION_TYPE", "local");
 
 $conn = establishConnection(CONNECTION_TYPE);
 

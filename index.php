@@ -1,5 +1,6 @@
 <?php session_start();
 
+
 if (isset( $_GET["status"])){
     $status = $_GET["status"];
     if ( $status === "unauthorized") echo "<script> alert('Unauthorized login') </script>";
@@ -14,10 +15,14 @@ if (isset( $_GET["status"])){
 
 <head>
 
-    <?php include("header.php"); ?>
+<?php include "header.php"; ?>
+
 
 </head>
 <body>
+<video autoplay muted loop id="backgroundVideo">
+    <source src="Resources/background.mp4" type="video/mp4">
+</video>
 
 <div class="login-form-container">
 
