@@ -18,7 +18,10 @@ include("header.php");
 
 <?php
 include "connect.php";
-$sql = "SELECT Title, Text FROM events ORDER BY ID DESC";
+
+$username = $_SESSION["username"];
+
+$sql = "SELECT Title, Text FROM events WHERE Author = '" . $username. "' ORDER BY ID DESC";
 $result = $conn->query($sql);
 
 while($row = $result->fetch_assoc()) {

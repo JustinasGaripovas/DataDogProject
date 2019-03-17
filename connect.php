@@ -1,5 +1,10 @@
 <?php
 
+
+// Useriai mysql database
+// u admin p pauviząadmin
+// u paulius p paulius
+
 define("LOCAL_SERVERNAME", "localhost");
 define("LOCAL_USERNAME", "root");
 define("LOCAL_PASSWORD", "");
