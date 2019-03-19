@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/twig/twig" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/doctrine/persistence" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/doctrine/inflector" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/doctrine/event-manager" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/psr/simple-cache" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/doctrine/annotations" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/composer" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/doctrine/reflection" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/doctrine/cache" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/doctrine/collections" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/doctrine/common" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/symfony/event-dispatcher" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/symfony/flex" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/symfony/framework-bundle" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/symfony/filesystem" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/sensio/framework-extra-bundle" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/symfony/asset" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/symfony/routing" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/symfony/http-kernel" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/symfony/config" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/symfony/console" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/symfony/contracts" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/symfony/finder" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/symfony/webpack-encore-bundle" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/symfony/webpack-encore-pack" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/symfony/http-foundation" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/symfony/var-exporter" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/symfony/dotenv" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/symfony/debug" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/symfony/cache" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/symfony/twig-bridge" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/symfony/twig-bundle" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/symfony/yaml" />
+      <path value="$PROJECT_DIR$/DataDogProject/vendor/symfony/dependency-injection" />
+    </include_path>
+  </component>
+  <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />
+</project>

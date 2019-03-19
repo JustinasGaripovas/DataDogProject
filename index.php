@@ -5,29 +5,29 @@
 </head>
 
 <body>
-    <div class="login_form">
+<div class="login_form">
 
-        <div class="login_label">
-            <h3>Sing-in form</h3>
-        </div>
-
-        <div class="login_block">
-            <form action="login.php" method="post">
-                <input type="text" name="username" placeholder="Username" required>
-                <br>
-                <input type="password" name="password" placeholder="Password" required>
-                <br>
-                <input class="submit_button" type="submit" value="Login">
-            </form>
-        </div>
-
-        <div>
-            <p>Login: datadog</p>
-            <p>Password: 123</p>
-        </div>
-
-
+    <div class="login_label">
+        <h3>Sing-in form</h3>
     </div>
+
+    <div class="login_block">
+        <form action="login.php" method="post">
+            <input type="text" name="username" placeholder="Username" required>
+            <br>
+            <input type="password" name="password" placeholder="Password" required>
+            <br>
+            <input class="submit_button" type="submit" value="Login">
+        </form>
+    </div>
+
+    <div>
+        <p>Login: datadog</p>
+        <p>Password: 123</p>
+    </div>
+
+
+</div>
 
 </body>
 
