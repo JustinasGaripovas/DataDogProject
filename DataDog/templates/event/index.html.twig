@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EventController!{% endblock %}
+
+{% block body %}
+
+
+    {% for event in events %}
+
+        <p> {{ event.title }} </p>
+        <p> {{ event.excerpt }} </p>
+        <p> {{ event.description }} </p>
+        <p> {{ event.getCreatedAt ? event.getCreatedAt|date('Y-m-d') : '' }} </p>
+        <p> {{ event.price }} </p>
+        <br>
+
+    {% endfor %}
+
+
+{% endblock %}
