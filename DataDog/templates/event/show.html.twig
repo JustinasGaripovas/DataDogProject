@@ -6,10 +6,10 @@
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
     <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
     <style>
-        #map{
-            width: 900px; height: 500px;
+        #map {
+            height: 400px;
+            width: 100%;
         }
-
         .center-image {
             display: block;
             margin-left: auto;
@@ -49,7 +49,7 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container my-2 py-3">
         <div class="jumbotron">
             <h1 class="display-3 text-center">{{ event.title }}</h1>
             <p class="lead text-center">{{ event.excerpt }}</p>
@@ -60,8 +60,16 @@
             </p>
         </div>
 
-        <div class="my-1 py-1 text-center" id="map"></div>
+        <br>
+
+        <div class="my-1 py-1 " id="map"></div>
+
+        <br>
+
+
     </div>
+
+
 
 
 

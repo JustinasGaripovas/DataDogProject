@@ -51,8 +51,6 @@ class EventController extends Controller
         ]);
     }
 
-
-
     /**
      * Kai padarai {id} slug, ir i paduodamu funkcijai parametrus irasai Event $event tada jis automatiskai suranda toki event su tokiu id
      * @Route("/event/{id}", name="event_new")
