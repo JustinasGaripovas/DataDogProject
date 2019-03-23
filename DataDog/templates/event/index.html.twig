@@ -4,10 +4,9 @@
 
 {% block body %}
 
-
     {% for event in events %}
 
-        <p> {{ event.title }} </p>
+        <p class="legend"> {{ event.title }} </p>
         <p> {{ event.excerpt }} </p>
         <p> {{ event.description }} </p>
         <p> {{ event.getCreatedAt ? event.getCreatedAt|date('Y-m-d') : '' }} </p>
