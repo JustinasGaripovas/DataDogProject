@@ -81,5 +81,20 @@ class EventController extends Controller
         ]);
     }
 
+    /**
+     * @Route("/event/delete/{event_id}", name="event_delete")
+     */
+    public function deleteEvent(Request $request, $event_id)
+    {
+        $event = $this->getDoctrine()
+            ->getRepository(Event::class)
+            ->find($event_id);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($event);
+        $em->flush();
+        return $this->redirectToRoute('event_index');
+    }
+
 
 }

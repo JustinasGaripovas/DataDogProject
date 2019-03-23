@@ -4,6 +4,8 @@
 
 {% block body %}
 
+    <a style="position: fixed;top: 1em;right: 1em; " href="/event/new" > New event </a>
+
     {% for event in events %}
 
         <p class="legend"> {{ event.title }} </p>
@@ -12,7 +14,11 @@
         <p> {{ event.getCreatedAt ? event.getCreatedAt|date('Y-m-d') : '' }} </p>
         <p> {{ event.price }} </p>
         <a href="/event/edit/{{ event.id }}"> Edit </a>
+        <a href="/event/delete/{{ event.id }}"> Delete </a>
         <br>
+        <br>
+        <br> <!-- xd, žinau -->
+
 
     {% endfor %}
 
