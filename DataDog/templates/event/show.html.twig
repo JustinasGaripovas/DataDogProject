@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}WIP{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <style>
+        #map{
+            width: 900px; height: 500px;
+        }
+
+        .center-image {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 80%;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function () {
+
+            var my_lat = 54.905001;
+            var my_lon = 23.916495;
+
+            // initialize the map
+            var mymap = L.map('map').setView([my_lat, my_lon], 13);
+            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGFpc2FkbWluIiwiYSI6ImNqcjk3ZWh0djAxemo0NW15Zm9pb3BiNHAifQ.UM9_gDRuLxs1mGvPSjSsHQ', {
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                maxZoom: 18,
+                minZoom: 12,
+                id: 'mapbox.streets',
+                accessToken: 'your.mapbox.access.token'
+            }).addTo(mymap);
+
+
+            //  Tikram map, kur bus visi renginiai, cia bus for-iukas
+            L.marker([my_lat, my_lon]).addTo(mymap).bindPopup(" " +
+                "<div class='container-fluid' style=''>" +
+                     "<img class='center-image py-2' src='https://renginiai.kasvyksta.lt/uploads/events/15067/big/erikas-ov%C4%8Darenko-1024x683.jpg' class=\"w3-round\" alt=\"Norway\"> " +
+                     "<p class='my-0'>Tai yra nuotrauka su mapu :*</p>" +
+                "</div>" +
+                "").openPopup();
+        });
+    </script>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="display-3 text-center">{{ event.title }}</h1>
+            <p class="lead text-center">{{ event.excerpt }}</p>
+            <hr class="my-4">
+            <p class="lead">{{ event.description }}</p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+            </p>
+        </div>
+
+        <div class="my-1 py-1 text-center" id="map"></div>
+    </div>
+
+
+
+{% endblock %}

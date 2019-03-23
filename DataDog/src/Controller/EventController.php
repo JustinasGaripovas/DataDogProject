@@ -31,7 +31,6 @@ class EventController extends Controller
     public function newEvent(Request $request)
     {
         $event = new Event();
-
         $form = $this->createForm(EventType::class, $event);
         $form->handleRequest($request);
 
@@ -44,12 +43,41 @@ class EventController extends Controller
             $em->flush();
 
             return $this->redirectToRoute('event_index');
-
         }
 
         return $this->render('event/new.html.twig', [
             'event' => $event,
             'form' => $form->createView()
+        ]);
+    }
+
+
+
+    /**
+     * Kai padarai {id} slug, ir i paduodamu funkcijai parametrus irasai Event $event tada jis automatiskai suranda toki event su tokiu id
+     * @Route("/event/{id}", name="event_new")
+     */
+    public function showEvent(Request $request, Event $event)
+    {
+        dump($event);
+
+        /*
+        $form = $this->createForm(EventType::class, $event);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $event->setCreatedAt(new \DateTime('now'));
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($event);
+            $em->flush();
+
+            return $this->redirectToRoute('event_index');
+        }*/
+
+        return $this->render('event/show.html.twig', [
+            'event' => $event,
         ]);
     }
 }
