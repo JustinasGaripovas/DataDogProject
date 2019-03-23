@@ -11,6 +11,7 @@
         <p> {{ event.description }} </p>
         <p> {{ event.getCreatedAt ? event.getCreatedAt|date('Y-m-d') : '' }} </p>
         <p> {{ event.price }} </p>
+        <a href="/event/edit/{{ event.id }}"> Edit </a>
         <br>
 
     {% endfor %}

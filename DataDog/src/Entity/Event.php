@@ -3,11 +3,12 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Form\AbstractType;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
  */
-class Event
+class Event extends AbstractType
 {
     /**
      * @ORM\Id()
@@ -105,4 +106,7 @@ class Event
 
         return $this;
     }
+
+
+
 }

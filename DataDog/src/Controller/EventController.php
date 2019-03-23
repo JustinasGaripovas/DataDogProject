@@ -52,4 +52,34 @@ class EventController extends Controller
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/event/edit/{event_id}", name="event_edit")
+     */
+    public function editEvent(Request $request, $event_id)
+    {
+
+        $event = $this->getDoctrine()
+            ->getRepository(Event::class)
+            ->find($event_id);
+
+
+        $form = $this->createForm(EventType::class, $event);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            return $this->redirectToRoute('event_index');
+        }
+        $form->handleRequest($request);
+        return $this->render('event/edit.html.twig', [
+            'form' => $form->createView()
+
+        ]);
+    }
+
+
 }
