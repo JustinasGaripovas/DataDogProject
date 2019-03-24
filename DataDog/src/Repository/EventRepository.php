@@ -19,6 +19,18 @@ class EventRepository extends ServiceEntityRepository
         parent::__construct($registry, Event::class);
     }
 
+    /*
+     * @return Event[] Returns newest events by array
+     */
+    public  function findNewest(){
+
+        return $this->createQueryBuilder('e')
+
+            ->orderBy('e.created_at', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
     // /**
     //  * @return Event[] Returns an array of Event objects
     //  */
@@ -35,4 +47,6 @@ class EventRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
 }
