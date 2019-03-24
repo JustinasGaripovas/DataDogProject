@@ -10,7 +10,7 @@
     <div style="width:50%;padding: 3em;" class="container-fluid">
 
     {{ form_start(form) }}
-    
+
     {{ form_errors(form) }}
     {% for child in form if not child.rendered %}
         <div class="form-group row">
