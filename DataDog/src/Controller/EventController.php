@@ -79,4 +79,3 @@ class EventController extends Controller
         ]);
     }
 }
-public function kazkokiaTaiFunkcija(){}
