@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container">
-        <a class="btn d-block btn-outline-primary" href="{{ path('event_new') }}" > New event </a>
+        <a class="container btn d-block btn-outline-primary" style="width:60%" href="{{ path('event_new') }}" > New event </a>
         {% for event in events %}
             <div class="container" style="margin-top: 3em; width: 60%">
             <h3 style="font-weight: bold"> {{ event.title }} </h3>
