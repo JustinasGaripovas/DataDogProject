@@ -3,23 +3,20 @@
 {% block title %}Hello EventController!{% endblock %}
 
 {% block body %}
-
-    <a style="position: fixed;top: 1em;right: 1em; " href="/event/new" > New event </a>
-
-    {% for event in events %}
-        <div class="container" style="margin-top: 3em; width: 60%">
-        <h3 style="font-weight: bold"> {{ event.title }} </h3>
-        <h4> {{ event.excerpt }} </h4>
-        <p> {{ event.description }} </p>
-        <p> {{ event.getCreatedAt ? event.getCreatedAt|date('Y-m-d') : '' }} </p>
-        <p> Kaina: {{ event.price }} </p>
-        <a href="/event/edit/{{ event.id }}"> Edit </a> |
-        <a href="/event/delete/{{ event.id }}"> Delete </a>
-        <hr style="border: 1px solid #7448A1;" align="left" width="70px"/>
-        </div>
-
-
-    {% endfor %}
-
-
+    <div class="container">
+        <a class="btn d-block btn-outline-primary" href="{{ path('event_new') }}" > New event </a>
+        {% for event in events %}
+            <div class="container" style="margin-top: 3em; width: 60%">
+            <h3 style="font-weight: bold"> {{ event.title }} </h3>
+            <h4> {{ event.excerpt }} </h4>
+            <p> {{ event.description }} </p>
+            <p> {{ event.getCreatedAt ? event.getCreatedAt|date('Y-m-d') : '' }} </p>
+            <p> Kaina: {{ event.price }} </p>
+            <a href="/event/edit/{{ event.id }}"> Edit </a> |
+            <a href="/event/delete/{{ event.id }}"> Delete </a> |
+            <a href="{{ path('event_show', {'id': event.id}) }}"> Show </a>
+            <hr style="border: 1px solid #7448A1;" align="left" width="130px"/>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
