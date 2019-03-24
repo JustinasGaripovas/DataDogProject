@@ -78,4 +78,8 @@ class EventController extends Controller
             'event' => $event,
         ]);
     }
+
+    public function Paulius(){}
+
+
 }
