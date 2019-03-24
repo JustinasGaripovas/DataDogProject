@@ -78,5 +78,9 @@ class EventController extends Controller
             'event' => $event,
         ]);
     }
+
+    public function Paulius(){}
+
+
 }
 public function kazkokiaTaiFunkcija(){}
