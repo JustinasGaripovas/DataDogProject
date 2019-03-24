@@ -18,7 +18,7 @@ class EventController extends Controller
      */
     public function index(EventRepository $repository, Request $request)
     {
-        $events = $repository->findAll();
+        $events = $repository->findNewest();
 
         return $this->render('event/index.html.twig', [
             'events' => $events,
