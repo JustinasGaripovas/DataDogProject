@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class EventController extends Controller
 {
     /**
-     * @Route("/event", name="event_index")
+     * @Route("/", name="event_index")
      */
     public function index(EventRepository $repository, Request $request)
     {
@@ -26,7 +26,7 @@ class EventController extends Controller
     }
 
     /**
-     * @Route("/event/new", name="event_new")
+     * @Route("/newevent", name="event_new")
      */
     public function newEvent(Request $request)
     {
@@ -78,4 +78,36 @@ class EventController extends Controller
             'event' => $event,
         ]);
     }
+
+    /**
+     * @Route("/event/{id}/edit", name="event_edit")
+     */
+    public function editEvent(Request $request, Event $event)
+    {
+
+        $form = $this->createForm(EventType::class, $event);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+            return $this->redirectToRoute('event_index');
+        }
+        $form->handleRequest($request);
+        return $this->render('event/edit.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+    /**
+     * @Route("/event/{id}/delete", name="event_delete")
+     */
+    public function deleteEvent(Request $request, Event $event)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($event);
+        $em->flush();
+        return $this->redirectToRoute('event_index');
+    }
+
+
 }
