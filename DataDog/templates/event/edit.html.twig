@@ -9,8 +9,6 @@
 
     <div class="jumbotron">
 
-    {{ form_start(form) }}
-
     {{ form_errors(form) }}
     {% for child in form if not child.rendered %}
         <div class="form-group row">
