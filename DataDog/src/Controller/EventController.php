@@ -30,6 +30,8 @@ class EventController extends Controller
      */
     public function newEvent(Request $request)
     {
+        $this->denyAccessUnlessGranted("ROLE_ADMIN");
+
         $event = new Event();
         $form = $this->createForm(EventType::class, $event);
         $form->handleRequest($request);
@@ -85,6 +87,7 @@ class EventController extends Controller
     public function editEvent(Request $request, Event $event)
     {
 
+        $this->denyAccessUnlessGranted("ROLE_ADMIN");
         $form = $this->createForm(EventType::class, $event);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -103,6 +106,7 @@ class EventController extends Controller
     public function deleteEvent(Request $request, Event $event)
     {
 
+        $this->denyAccessUnlessGranted("ROLE_ADMIN");
         $em = $this->getDoctrine()->getManager();
         $em->remove($event);
         $em->flush();

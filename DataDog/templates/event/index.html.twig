@@ -4,18 +4,23 @@
 
 {% block body %}
     <div class="container">
-        <a class="container btn d-block btn-outline-primary" style="width:60%" href="{{ path('event_new') }}" > New event </a>
+        {% if is_granted('ROLE_ADMIN') %}
+        <a class="container btn d-block btn-outline-primary" style="width:60%" href="{{ path('event_new') }}"> New
+            event </a>
+        {% endif %}
         {% for event in events %}
             <div class="container" style="margin-top: 3em; width: 60%">
-            <a href="{{ path('event_show', {'id': event.id}) }}"> <h3 style="font-weight: bold"> {{ event.title }} </h3> </a>
-            <h4> {{ event.excerpt }} </h4>
-            <p> {{ event.description }} </p>
-            <p> {{ event.getCreatedAt ? event.getCreatedAt|date('Y-m-d') : '' }} </p>
-            <p> Kaina: {{ event.price }} </p>
-            <a href="/event/{{ event.id }}/edit"> Edit </a> |
-            <a href="/event/{{ event.id }}/delete"> Delete </a> |
-            <a href="{{ path('event_show', {'id': event.id}) }}"> Show </a>
-            <hr style="border: 1px solid #7448A1;" align="left" width="130px"/>
+                <a href="{{ path('event_show', {'id': event.id}) }}"><h3
+                            style="font-weight: bold"> {{ event.title }} </h3></a>
+                <h4> {{ event.excerpt }} </h4>
+                <p> {{ event.description }} </p>
+                <p> {{ event.getCreatedAt ? event.getCreatedAt|date('Y-m-d') : '' }} </p>
+                <p> Kaina: {{ event.price }} </p>
+                {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('event_edit', {'id': event.id}) }}"> Edit </a>
+                <a href="{{ path('event_delete', {'id': event.id}) }}"> Delete </a>
+                {% endif %}
+                <hr style="border: 1px solid #7448A1;" align="left" width="130px"/>
             </div>
         {% endfor %}
     </div>
