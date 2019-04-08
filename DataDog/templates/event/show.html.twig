@@ -59,9 +59,9 @@
                 <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
             </p>#}
             {% if event.image %}
-            <img src={{ asset('uploads/images/' ~ event.image) }} />
+            <img class="eventImage" src={{ asset('uploads/images/' ~ event.image) }} />
             {% else %}
-            <img src={{ asset('uploads/images/placeholder.png') }} />
+            <img class="eventImage" src={{ asset('uploads/images/placeholder.png') }} />
             {% endif %}
         </div>
 
