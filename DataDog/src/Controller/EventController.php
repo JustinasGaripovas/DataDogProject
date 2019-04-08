@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\File;
 
-class EventController extends Controller
+class   EventController extends AbstractController
 {
     /**
      * @Route("/", name="event_index")
@@ -145,7 +145,8 @@ class EventController extends Controller
         }
         //$form->handleRequest($request);
         return $this->render('event/edit.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'event' => $event
         ]);
     }
     /**
