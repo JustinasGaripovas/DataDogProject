@@ -10,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+
 
 class EventType extends AbstractType
 {
@@ -22,7 +24,7 @@ class EventType extends AbstractType
             ->add('price', IntegerType::class)
             ->add('lat',HiddenType::class)
             ->add('lng',HiddenType::class)
-        ;
+            ->add('image', FileType::class, ['label' => 'Image', 'required' => false,]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
