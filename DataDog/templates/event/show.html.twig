@@ -23,8 +23,8 @@
     <script>
         $(document).ready(function () {
 
-            var my_lat = 54.905001;
-            var my_lon = 23.916495;
+            var my_lat = {{ event.lat }};
+            var my_lon = {{ event.lng }};
 
             // initialize the map
             var mymap = L.map('map').setView([my_lat, my_lon], 13);
@@ -38,7 +38,7 @@
 
 
             //  Tikram map, kur bus visi renginiai, cia bus for-iukas
-            L.marker([my_lat, my_lon]).addTo(mymap).bindPopup(" " +
+            var marker = L.marker([my_lat, my_lon]).addTo(mymap).bindPopup(" " +
                 "<div class='container-fluid' style=''>" +
                      "<img class='center-image py-2' src='https://renginiai.kasvyksta.lt/uploads/events/15067/big/erikas-ov%C4%8Darenko-1024x683.jpg' class=\"w3-round\" alt=\"Norway\"> " +
                      "<p class='my-0'>Tai yra nuotrauka su mapu :*</p>" +
