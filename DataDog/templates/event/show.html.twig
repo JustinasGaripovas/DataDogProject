@@ -55,9 +55,14 @@
             <p class="lead text-center">{{ event.excerpt }}</p>
             <hr class="my-4">
             <p class="lead">{{ event.description }}</p>
-            <p class="lead">
+            {#<p class="lead">
                 <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-            </p>
+            </p>#}
+            {% if event.image %}
+            <img src={{ asset('uploads/images/' ~ event.image) }} />
+            {% else %}
+            <img src={{ asset('uploads/images/placeholder.png') }} />
+            {% endif %}
         </div>
 
         <br>
