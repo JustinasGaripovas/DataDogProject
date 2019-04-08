@@ -41,6 +41,11 @@ class Event
      */
     private $price;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -106,6 +111,16 @@ class Event
         return $this;
     }
 
+    public function getImage()
+    {
+        return $this->image;
+    }
 
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
 
 }
