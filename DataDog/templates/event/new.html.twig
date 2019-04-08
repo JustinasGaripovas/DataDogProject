@@ -23,6 +23,9 @@
     <script>
         $(document).ready(function () {
 
+            var my_lat = 54.897222;
+            var my_lon = 23.886111;
+
             // initialize the map
             var mymap = L.map('map').setView([my_lat, my_lon], 13);
             L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGFpc2FkbWluIiwiYSI6ImNqcjk3ZWh0djAxemo0NW15Zm9pb3BiNHAifQ.UM9_gDRuLxs1mGvPSjSsHQ', {
@@ -33,15 +36,21 @@
                 accessToken: 'your.mapbox.access.token'
             }).addTo(mymap);
 
+
+            //  Tikram map, kur bus visi renginiai, cia bus for-iukas
+            var marker = L.marker([my_lat, my_lon]).addTo(mymap);
+
             mymap.on('click', function(e) {
 
                 mymap.removeLayer(marker);
 
                 marker = new L.marker([e.latlng['lat'], e.latlng['lng']]).addTo(mymap);
 
+
                 $('#event_lat').val(e.latlng['lat']);
                 $('#event_lng').val(e.latlng['lng']);
 
+                console.log(e.latlng); // e is an event object (MouseEvent in this case)
             });
         });
     </script>
