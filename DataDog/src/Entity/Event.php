@@ -51,7 +51,6 @@ class Event
 
     /**
      * @ORM\Column(type="datetime")
-     * @Assert\NotBlank
      */
     private $created_at;
 
