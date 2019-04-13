@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Event;
 use function Sodium\add;
 use Symfony\Component\Form\AbstractType;
@@ -11,7 +12,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class EventType extends AbstractType
 {
@@ -22,6 +24,12 @@ class EventType extends AbstractType
             ->add('excerpt')
             ->add('description')
             ->add('price', IntegerType::class)
+            ->add('eventCategories', EntityType::class, [
+                'class' => Category::class,
+                'multiple' => true,
+                'expanded' => true,
+                'choice_label' => 'name',
+            ])
             ->add('lat',HiddenType::class)
             ->add('lng',HiddenType::class)
             ->add('image', FileType::class, ['label' => 'Image', 'required' => false,]);
