@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -18,6 +19,11 @@ class Comment
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Komentaras negali būti tuščias")
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "Komentaras per ilgas [max {{ limit }} raidžių ]"
+     *      )
      */
     private $text;
 

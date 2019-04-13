@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,27 +18,49 @@ class Event
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=60)
+     * @Assert\NotBlank(message="Pavadinimas negali būti tuščias")
+     * @Assert\Length(
+     *      max = 60,
+     *      min = 3,
+     *      maxMessage = "Pavadinimas per ilgas [max {{ limit }} raidžių ]",
+     *      minMessage = "Pavadinimas per trumpas [min {{ limit }} raidžių ]"
+     *      )
      */
     private $title;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Assert\NotBlank(message="Aprašas negali būti tuščias")
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "Aprašas per ilgas [max {{ limit }} raidžių ]"
+     *      )
      */
     private $excerpt;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Assert\NotBlank(message="Aprašas negali būti tuščias")
+     * @Assert\Length(
+     *      max = 600,
+     *      maxMessage = "Aprašas per ilgas [max {{ limit }} raidžių ]"
+     *      )
      */
     private $description;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank
      */
     private $created_at;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\GreaterThanOrEqual(
+     *   value = 0,
+     *   message = "Kaina genali būti {{ value }} ji turi būti {{ compared_value }} arba aukščiau"
+     *  )
      */
     private $price;
 

@@ -20,7 +20,14 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @ORM\Column(type="string", length=60, unique=true)
+     * @Assert\NotBlank(message="Vardas negali būti tuščias")
+     * @Assert\Length(
+     *      max = 60,
+     *      min = 3,
+     *      maxMessage = "Vardas per ilgas [max {{ limit }} raidžių ]",
+     *      minMessage = "Vardas per trumpas [min {{ limit }} raidžių ]"
+     *      )
      */
     private $username;
 
@@ -29,6 +36,7 @@ class User implements UserInterface
      */
     private $roles = [];
 
+    //TODO: Extra validation when changing password
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
@@ -37,6 +45,11 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Pašto adresas negali būti tuščias")
+     * @Assert\Email(
+     *     message = "Netinkamas pašto adresas",
+     *     checkMX = true
+     * )
      */
     private $email;
 
