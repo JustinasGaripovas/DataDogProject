@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}KTU NOW{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% if is_granted('ROLE_ADMIN') %}
+            <a class="container btn d-block btn-outline-primary my-3" style="width:60%" href="{{ path('category_new') }}"> New
+                category </a>
+        {% endif %}
+        {% for category in categories %}
+            <div class="container" style="margin-top: 1em; width: 60%">
+                {{ category.name }}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('category_delete', {'id': category.id}) }}" style="float: right"> Delete </a>
+                    <a href="{{ path('category_edit', {'id': category.id}) }}" style="float: right; margin-right: 1em"> Edit </a>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
