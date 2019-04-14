@@ -58,11 +58,20 @@
             {#<p class="lead">
                 <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
             </p>#}
+
             {% if event.image %}
             <img class="eventImage" src={{ asset('uploads/images/' ~ event.image) }} />
             {% else %}
             <img class="eventImage" src={{ asset('uploads/images/placeholder.png') }} />
             {% endif %}
+            <p>
+                Kategorijos:
+            <ul>
+                {% for category in event.eventCategories %}
+                    <li>{{ category.name }}</li>
+                {% endfor %}
+            </ul>
+            </p>
         </div>
 
         <br>

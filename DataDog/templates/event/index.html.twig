@@ -21,6 +21,14 @@
                 <p> {{ event.description }} </p>
                 <p> {{ event.getCreatedAt ? event.getCreatedAt|date('Y-m-d') : '' }} </p>
                 <p> Kaina: {{ event.price }} </p>
+                <p>
+                    Kategorijos:
+                    <ul>
+                    {% for category in event.eventCategories %}
+                        <li>{{ category.name }}</li>
+                    {% endfor %}
+                    </ul>
+                </p>
                 {% if is_granted('ROLE_ADMIN') %}
                 <a href="{{ path('event_edit', {'id': event.id}) }}"> Edit </a>
                 <a href="{{ path('event_delete', {'id': event.id}) }}"> Delete </a>
