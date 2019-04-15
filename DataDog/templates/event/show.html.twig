@@ -76,16 +76,15 @@
 
         <br>
 
-        {% import 'event/commentMacro.twig' as commentMacro %}
+        {% import 'event/commentMacros.twig' as commentMacro %}
 
             <div class="row justify-content-centre">
 
                 {% for comment in event.comments %}
-                   {{ commentMacro.printComment(comment, " some gay shit ") }}
+                   {{ commentMacro.printComment(comment, event) }}
                 {% endfor %}
-
-
             </div>
+
 
         <br>
 

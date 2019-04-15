@@ -1,4 +1,4 @@
-{% macro printComment(comment, emptyMessage) %}
+{% macro printComment(comment, event) %}
 {#
     <div class="card border-success mb-3" style="max-width: 20rem;">
         <div class="card-header">Header</div>
@@ -36,8 +36,19 @@
                 <div class="col-6">
                     Created at: <span class="text-muted">{{ comment.date|date('Y-m-d \n H:m') }}</span>
                 </div>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class="col-4 offset-4">
+                        <form method="post" action="{{ path('comment_delete', {'id': comment.id, 'event_id': event.id} ) }}" onsubmit="return confirm('Ar tikrai norite ištrinti ?');">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
+                            <button>Delete</button>
+                        </form>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
+
+
 {% endmacro %}
 
