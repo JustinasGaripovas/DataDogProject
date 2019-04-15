@@ -186,7 +186,7 @@ class   EventController extends AbstractController
             return $this->redirectToRoute('event_show', ['id' => $event->getId()]);
         }
 
-        return $this->render('event/new.html.twig', [
+        return $this->render('event/new_comment.html.twig', [
             'comment' => $comment,
             'form' => $form->createView()
         ]);

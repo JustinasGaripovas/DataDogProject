@@ -190,6 +190,12 @@ class Event
         return $this->image;
     }
 
+    public function getFormattedPrice()
+    {
+
+        return number_format($this->getPrice()/100, 2, '.', ' ');
+
+    }
 
     public function setImage($image)
     {
