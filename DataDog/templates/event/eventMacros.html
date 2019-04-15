@@ -10,13 +10,13 @@
 {% endmacro %}
 
 
-{% macro price_format(price) %}
+{% macro price_format(event) %}
 
 <p style="float:right">
-{% if price == 0 %}
+{% if event.price == 0 %}
 Nemokamas
 {% else %}
- {{price/100|round(4, 'floor')}}.{{price%100}}€
+   {{event.getFormattedPrice()}}€
 {% endif %}
 
 </p>

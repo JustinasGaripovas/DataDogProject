@@ -63,10 +63,12 @@
 
 
     <div class="container">
-    {{ form(form) }}
-
-    <br>
-    <div class="my-1 py-1 " id="map"></div>
-
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary">Pateikti</button>
+        {{ form_end(form) }}
+        <div class="my-1 py-1 " id="map"></div>
     </div>
+
+
 {% endblock %}

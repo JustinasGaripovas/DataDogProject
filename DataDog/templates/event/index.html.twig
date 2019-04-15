@@ -52,7 +52,7 @@
 
                 <div class="meta">
                     <p style="float:left"> {{ event.getCreatedAt|date('Y-m-d')  }} </p>
-                    {{ forms.price_format(event.price) }}
+                    {{ forms.price_format(event) }}
                 </div>
 
                 <a href="{{ path('event_show', {'id': event.id}) }}">

@@ -10,6 +10,7 @@
             height: 400px;
             width: 100%;
         }
+
         .center-image {
             display: block;
             margin-left: auto;
@@ -43,7 +44,7 @@
             //  Tikram map, kur bus visi renginiai, cia bus for-iukas
             var marker = L.marker([my_lat, my_lon]).addTo(mymap);
 
-            mymap.on('click', function(e) {
+            mymap.on('click', function (e) {
 
                 mymap.removeLayer(marker);
 
@@ -64,14 +65,17 @@
 
 {% block body %}
 
+    {# <div class="container">
+         {{ form(form) }}
+         <button type="submit" class="btn btn-primary">Naujas renginys</button>
+     <br>#}
+
     <div class="container">
-        {{ form(form) }}
-
-    <br>
-
-    <div class="my-1 py-1 " id="map"></div>
-
-
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary">Pateikti</button>
+        {{ form_end(form) }}
+        <div class="my-1 py-1 " id="map"></div>
     </div>
 
 

@@ -47,10 +47,11 @@
         });
     </script>
 {% endblock %}
-
+   {% import "event/eventMacros.html" as eventMacro %}
 {% block body %}
     <div class="container my-2 py-3">
         <div class="jumbotron">
+
             <h1 class="display-3 text-center">{{ event.title }}</h1>
             <hr class="my-4">
             <p class="lead">{{ event.description }}</p>
@@ -71,6 +72,10 @@
                 {% endfor %}
             </ul>
             </p>
+            {{ eventMacro.event_administration(event.id) }}
+
+            <a  href="{{ path('event_comment', {'id': event.id}) }}" class="commentButton p-2 "> Komentuoti </a>
+
         </div>
 
         <br>

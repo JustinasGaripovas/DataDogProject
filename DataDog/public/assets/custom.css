@@ -17,3 +17,15 @@
         margin:3rem auto;
     }
 }
+
+
+.commentButton{
+    background-color: #85169e;
+    color: white;
+    text-decoration: none;
+    display: block;
+    margin:0 auto;
+    width: 10rem;
+    text-align: center;
+
+}
