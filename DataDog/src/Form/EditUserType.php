@@ -16,11 +16,16 @@ class EditUserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username')
+            ->add('username',null,[
+                'label' => 'Vardas'
+            ])
             ->add('oldPassword', PasswordType::class, array(
-                'mapped' => false
+                'mapped' => false,
+                'label' => 'Senas slaptažodis'
             ))
             ->add('password', RepeatedType::class, array(
+                'first_options'  => ['label' => 'Naujas slaptažodis'],
+                'second_options' => ['label' => 'Pakartoti naują slaptažodį'],
                 'type' => PasswordType::class,
                 'invalid_message' => 'Nesutinka slaptažodžiai',
                 'options' => array(
@@ -31,7 +36,9 @@ class EditUserType extends AbstractType
                 'required' => true,
                 'mapped' => false
             ))
-            ->add('email',EmailType::class,[])
+            ->add('email',EmailType::class,[
+                'label' => 'Elektroninis paštas'
+            ])
         ;
     }
 
