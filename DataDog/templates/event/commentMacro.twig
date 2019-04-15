@@ -1,0 +1,56 @@
+{% macro printComment(comment, emptyMessage) %}
+{#
+    <div class="card border-success mb-3" style="max-width: 20rem;">
+        <div class="card-header">Header</div>
+        <div>
+            <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
+        </div>
+
+        <div class="card-body">
+            <h4 class="card-title">Autorius : {{ comment.author }}</h4>
+            <p class="card-text">{{ comment.text }}</p>
+            <h6 class="card-subtitle text-muted">{{ comment.date|date('Y-m-d \n H:m') }}</h6>
+        </div>
+    </div>
+#}
+
+
+    <div class="col-md-6" style="overflow: hidden">
+        <div class="m-3 row justify-content-center">
+            <div class="col-4 pr-0">
+                <div class="float-right">
+                    <img class="avatar rounded-circle mx-2" src="https://img.icons8.com/bubbles/100/000000/administrator-male.png">
+                </div>
+
+            </div>
+            <div class="col-8 pl-0" style="display: flex; align-items: center;">
+                <div>
+                    {{ comment.text }}
+                </div>
+            </div>
+
+            <div class="row justify-content-around col-12">
+                <div class="col-4">
+                    Created by: <span class="text-muted">{{ comment.author }}</span>
+                </div>
+                <div class="col-6">
+                    Created at: <span class="text-muted">{{ comment.date|date('Y-m-d \n H:m') }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+{#
+    <div style="overflow: hidden" class="list-group-item list-group-item-action d-flex justify-content-center align-items-center my-2 w-60">
+        <img class="avatar rounded-circle mx-2" src="https://img.icons8.com/bubbles/100/000000/administrator-male.png">
+        <div>
+            <div class="d-flex w-100 justify-content-around">
+                <h5 class="mb-1 my-">Comment topic</h5>
+                <small class="text-muted">{{ comment.date|date('Y-m-d \n H:m') }}</small>
+            </div>
+            <p class="mb-1">{{ comment.text }}</p>
+            <small class="text-muted">{{ comment.author }}</small>
+        </div>
+    </div>
+#}
+{% endmacro %}
+
