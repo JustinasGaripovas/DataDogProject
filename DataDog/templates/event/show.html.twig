@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
 
+{% import "event/eventMacros.html" as eventMacro %}
+{% import 'event/commentMacros.twig' as commentMacro %}
+
 {% block title %} KTU NOW | {{ event.title }} {% endblock %}
 
 {% block head %}
@@ -23,8 +26,8 @@
     <script>
         $(document).ready(function () {
 
-            var my_lat = {{ event.lat }};
-            var my_lon = {{ event.lng }};
+            var my_lat = {{ event.lat ? event.lat  : 54.897222 }};
+            var my_lon = {{ event.lng ? event.lng  : 23.886111 }};
 
             // initialize the map
             var mymap = L.map('map').setView([my_lat, my_lon], 13);
@@ -47,17 +50,22 @@
         });
     </script>
 {% endblock %}
-   {% import "event/eventMacros.html" as eventMacro %}
+
 {% block body %}
     <div class="container my-2 py-3">
         <div class="jumbotron">
 
-            <h1 class="display-3 text-center">{{ event.title }}</h1>
-            <hr class="my-4">
-            <p class="lead">{{ event.description }}</p>
-            {#<p class="lead">
-                <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-            </p>#}
+            <h1 class="display-3 text-center p-1">{{ event.title }}</h1>
+
+            <div style="font-size: 1.1rem">
+            <span>Data : <span class="text-muted">{{ event.getCreatedAt|date('Y-m-d')  }}</span> </span>
+
+            {{ eventMacro.price_format(event) }}
+            </div>
+            <hr>
+
+            <p class="lead m-2 p-2">{{ event.description }}</p>
+
 
             {% if event.image %}
             <img class="eventImage" src={{ asset('uploads/images/' ~ event.image) }} />
@@ -80,7 +88,7 @@
 
         <br>
 
-        {% import 'event/commentMacros.twig' as commentMacro %}
+        <h3>Komentarai:</h3>
 
             <div class="row justify-content-centre">
 

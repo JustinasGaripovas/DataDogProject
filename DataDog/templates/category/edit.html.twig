@@ -4,6 +4,7 @@
 
 {% block body %}
 
+    {#
     {{ form_start(form) }}
 
     <div class="jumbotron">
@@ -21,5 +22,15 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>
     {{ form_end(form) }}
+    #}
+
+    <div class="container my-3 py-2">
+        <h1 style="text-align: center;" class="my-2">Kategorijos keitimas</h1>
+
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary">Pateikti</button>
+        {{ form_end(form) }}
+    </div>
 
 {% endblock %}

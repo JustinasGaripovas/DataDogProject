@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -18,6 +19,13 @@ class Category
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Kategorija negali būti tuščias")
+     * @Assert\Length(
+     *      max = 60,
+     *      min = 3,
+     *      maxMessage = "Kategorija per ilga [max {{ limit }} raidžių ]",
+     *      minMessage = "Kategorija per trumpa [min {{ limit }} raidžių ]"
+     *      )
      */
     private $name;
 

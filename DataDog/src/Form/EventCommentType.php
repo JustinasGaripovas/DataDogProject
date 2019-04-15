@@ -12,7 +12,9 @@ class EventCommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('text')
+            ->add('text',null,[
+                'label' => 'Komentaras'
+            ])
         ;
     }
 
