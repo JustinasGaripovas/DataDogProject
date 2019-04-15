@@ -33,6 +33,7 @@
                 <a href="{{ path('event_edit', {'id': event.id}) }}"> Edit </a>
                 <a href="{{ path('event_delete', {'id': event.id}) }}"> Delete </a>
                 {% endif %}
+                <a href="{{ path('event_comment', {'id': event.id}) }}"> Comment </a>
                 <hr style="border: 1px solid #7448A1;" align="left" width="130px"/>
             </div>
         {% endfor %}

@@ -76,6 +76,14 @@
 
         <br>
 
+        <ul>
+            {% for comment in event.comments %}
+                <li>{{ comment.text }}</li>
+            {% endfor %}
+        </ul>
+
+        <br>
+
         <div class="my-1 py-1 " id="map"></div>
 
         <br>

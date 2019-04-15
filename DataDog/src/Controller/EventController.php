@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Event;
+use App\Form\EventCommentType;
 use App\Form\EventType;
 use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManager;
@@ -11,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class   EventController extends AbstractController
 {
@@ -168,5 +171,39 @@ class   EventController extends AbstractController
         // uniqid(), which is based on timestamps
         return md5(uniqid());
     }
+
+    /**
+     * @Route("/event/{id}/comment", name="event_comment")
+     */
+    public function newComment(Request $request, Event $event, TokenStorageInterface $tokenStorage)
+    {
+        $comment = new Comment();
+        $form = $this->createForm(EventCommentType::class, $comment);
+        $form->handleRequest($request);
+        $token = $tokenStorage->getToken();
+        $user = $token->getUser();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $comment->setDate(new \DateTime('now'));
+            $comment->setAuthor($user->getUsername());
+            $comment->setEvent($event);
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($comment);
+            $em->flush();
+
+            $event->addComment($comment);
+            $em->flush();
+
+            return $this->redirectToRoute('event_show', ['id' => $event->getId()]);
+        }
+
+        return $this->render('event/new.html.twig', [
+            'comment' => $comment,
+            'form' => $form->createView()
+        ]);
+    }
+
 
 }
