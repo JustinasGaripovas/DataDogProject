@@ -82,21 +82,6 @@ class   EventController extends AbstractController
     {
         dump($event);
 
-        /*
-        $form = $this->createForm(EventType::class, $event);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $event->setCreatedAt(new \DateTime('now'));
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($event);
-            $em->flush();
-
-            return $this->redirectToRoute('event_index');
-        }*/
-
         return $this->render('event/show.html.twig', [
             'event' => $event,
         ]);
@@ -177,6 +162,8 @@ class   EventController extends AbstractController
      */
     public function newComment(Request $request, Event $event, TokenStorageInterface $tokenStorage)
     {
+
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $comment = new Comment();
         $form = $this->createForm(EventCommentType::class, $comment);
         $form->handleRequest($request);
@@ -199,11 +186,32 @@ class   EventController extends AbstractController
             return $this->redirectToRoute('event_show', ['id' => $event->getId()]);
         }
 
-        return $this->render('event/new.html.twig', [
+        return $this->render('event/new_comment.html.twig', [
             'comment' => $comment,
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/{id}", name="comment_delete", methods="DELETE")
+     */
+    public function deleteComment(Request $request, Comment $comment)
+    {
+        $this->denyAccessUnlessGranted("ROLE_ADMIN");
+
+        $event_id = $request->query->get('event_id');
+
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        if ($this->isCsrfTokenValid('delete'.$comment->getId(), $request->request->get('_token'))) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($comment);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('event_show', ['id' => $event_id]);
+    }
+
 
 
 }

@@ -3,6 +3,7 @@
     max-width: 100%;
     margin: 2rem auto;
 }
+
 .footer{
     background-color: #3E3F3A;
     text-align: center;
@@ -11,4 +12,27 @@
 .footerImage{
     width: 50px;
     height: 50px;
+
+#home article{
+    margin-top: 3rem;
+}
+
+#home article .categories{
+    font-style: italic;
+}
+@media only screen and (min-width:800px){
+    #home article{
+        width: 50%;
+        margin:3rem auto;
+    }
+}
+  
+.commentButton{
+    background-color: #85169e;
+    color: white;
+    text-decoration: none;
+    display: block;
+    margin:0 auto;
+    width: 10rem;
+    text-align: center;
 }

@@ -1,15 +1,17 @@
 {% extends 'base.html.twig' %}
+{% import "event/eventMacros.html" as forms %}
 
 {% block title %}KTU NOW{% endblock %}
 
 {% block body %}
-    <div class="container">
+
+    {#<div class="container">
         {% if is_granted('ROLE_ADMIN') %}
-        <a class="container btn d-block btn-outline-primary my-3" style="width:60%" href="{{ path('event_new') }}"> New
+        <a class="container btn d-block btn-outline-primary my-3" href="{{ path('event_new') }}"> New
             event </a>
         {% endif %}
         {% for event in events %}
-            <div class="container" style="margin-top: 3em; width: 60%">
+            <div class="container" >
                 <a href="{{ path('event_show', {'id': event.id}) }}"><h3
                             style="font-weight: bold"> {{ event.title }} </h3></a>
                 {% if event.image %}
@@ -37,5 +39,49 @@
                 <hr style="border: 1px solid #7448A1;" align="left" width="130px"/>
             </div>
         {% endfor %}
+    </div>#}
+
+    <div id="home" class="container">
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <a class="btn container d-block btn-outline-primary my-3"  style="width:60%"" href="{{ path('event_new') }}"> New
+                event </a>
+        {% endif %}
+
+        {% for event in events %}
+            <article>
+                <a href="{{ path('event_show', {'id': event.id}) }}">
+                    <h2 style="font-weight: bold"> {{ event.title }} </h2></a>
+
+
+                <div class="meta">
+                    <p style="float:left"> {{ event.getCreatedAt|date('Y-m-d')  }} </p>
+                    {{ forms.price_format(event) }}
+                </div>
+
+                <a href="{{ path('event_show', {'id': event.id}) }}">
+                    {% if event.image %}
+                        <img class="eventImage" src={{ asset('uploads/images/' ~ event.image) }} />
+                    {% else %}
+                        <img class="eventImage" src={{ asset('uploads/images/placeholder.png') }} />
+                    {% endif %}
+                </a>
+
+                <p> {{ event.description }} </p>
+                <p class="categories">
+                    {% for category in event.eventCategories %}
+                        {{ category.name }}
+                    {% endfor %}
+                </p>
+
+                {{ forms.event_administration(event.id) }}
+
+            </article>
+
+
+        {% endfor %}
+
     </div>
+
+
 {% endblock %}

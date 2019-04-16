@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} KTU NOW | Editing profile{% endblock %}
+
+{% block body %}
+
+    <div class="container my-3 py-2">
+        <h1 style="text-align: center;" class="my-2">Redaguoti paskyrą</h1>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary">Pateikti</button>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

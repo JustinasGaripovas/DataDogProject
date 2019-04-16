@@ -1,0 +1,54 @@
+{% macro printComment(comment, event) %}
+{#
+    <div class="card border-success mb-3" style="max-width: 20rem;">
+        <div class="card-header">Header</div>
+        <div>
+            <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
+        </div>
+
+        <div class="card-body">
+            <h4 class="card-title">Autorius : {{ comment.author }}</h4>
+            <p class="card-text">{{ comment.text }}</p>
+            <h6 class="card-subtitle text-muted">{{ comment.date|date('Y-m-d \n H:m') }}</h6>
+        </div>
+    </div>
+#}
+
+
+    <div class="col-md-6" style="overflow: hidden">
+        <div class="m-3 row justify-content-center">
+            <div class="col-4 pr-0">
+                <div class="float-right">
+                    <img class="avatar rounded-circle mx-2" src="https://img.icons8.com/bubbles/100/000000/administrator-male.png">
+                </div>
+
+            </div>
+            <div class="col-8 pl-0" style="display: flex; align-items: center;">
+                <div>
+                    {{ comment.text }}
+                </div>
+            </div>
+
+            <div class="row justify-content-around col-12">
+                <div class="col-4">
+                    Created by: <span class="text-muted">{{ comment.author }}</span>
+                </div>
+                <div class="col-6">
+                    Created at: <span class="text-muted">{{ comment.date|date('Y-m-d \n H:i') }}</span>
+                </div>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class="col-4 offset-4">
+                        <form method="post" action="{{ path('comment_delete', {'id': comment.id, 'event_id': event.id} ) }}" onsubmit="return confirm('Ar tikrai norite ištrinti ?');">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
+                            <button>Delete</button>
+                        </form>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+{% endmacro %}
+

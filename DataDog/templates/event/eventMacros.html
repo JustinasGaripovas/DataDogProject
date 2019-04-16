@@ -1,0 +1,24 @@
+{% macro event_administration(id) %}
+
+{% if is_granted('ROLE_ADMIN') %}
+<div class="event-administration">
+    <a href="{{ path('event_edit', {'id': id}) }}"> Edit </a>
+    <a href="{{ path('event_delete', {'id': id}) }}"> Delete </a>
+</div>
+{% endif %}
+
+{% endmacro %}
+
+
+{% macro price_format(event) %}
+
+<p style="float:right">
+{% if event.price == 0 %}
+Nemokamas
+{% else %}
+   {{event.getFormattedPrice()}} €
+{% endif %}
+
+</p>
+
+{% endmacro %}

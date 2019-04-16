@@ -23,8 +23,8 @@
     <script>
         $(document).ready(function () {
 
-            var my_lat = {{ event.lat }};
-            var my_lon = {{ event.lng }};
+            var my_lat = {{ event.lat ? event.lat  : 54.897222 }};
+            var my_lon = {{ event.lng ? event.lng  : 23.886111 }};
 
             // initialize the map
             var mymap = L.map('map').setView([my_lat, my_lon], 13);
@@ -57,33 +57,18 @@
     </script>
 {% endblock %}
 
+      {% form_theme form 'bootstrap_4_layout.html.twig' %}
+
 {% block body %}
 
 
-    {{ form_start(form) }}
-
-    <div class="jumbotron">
-
-    {{ form_errors(form) }}
-    {% for child in form if not child.rendered %}
-        <div class="form-group row">
-            {{ form_label(child, null, { 'label_attr': {'class': 'col-sm-2 col-form-label' } }) }}
-            <div class="col-sm-10">
-                {{ form_widget(child,{ 'attr': {'class': 'form-control' } }) }}
-            </div>
-        </div>
-    {% endfor %}
-
-
-
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="container my-3 py-2">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary">Pateikti</button>
+        {{ form_end(form) }}
+        <div class="my-1 py-1 " id="map"></div>
     </div>
-    {{ form_end(form) }}
 
-    <br>
-
-    <div class="my-1 py-1 " id="map"></div>
-
-    <br>
 
 {% endblock %}
