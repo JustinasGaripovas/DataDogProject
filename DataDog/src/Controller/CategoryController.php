@@ -24,7 +24,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/newcategory", name="category_new")
+     * @Route("/new/category", name="category_new")
      */
     public function newCategory(Request $request)
     {

@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% import "event/eventMacros.html" as forms %}
 
 {% block title %}KTU NOW{% endblock %}
 
@@ -40,8 +41,6 @@
         {% endfor %}
     </div>#}
 
-    {% import "event/eventMacros.html" as forms %}
-
     <div id="home" class="container">
 
         {% for event in events %}
@@ -64,7 +63,6 @@
                 </a>
 
                 <p> {{ event.description }} </p>
-                <p> Paskelbta: {{ event.getCreatedAt|date('Y-m-d')  }} </p>
                 <p class="categories">
                     {% for category in event.eventCategories %}
                         {{ category.name }}
@@ -74,6 +72,7 @@
                 {{ forms.event_administration(event.id) }}
 
             </article>
+
 
         {% endfor %}
 

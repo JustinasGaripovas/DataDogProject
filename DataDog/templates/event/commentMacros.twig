@@ -34,7 +34,7 @@
                     Created by: <span class="text-muted">{{ comment.author }}</span>
                 </div>
                 <div class="col-6">
-                    Created at: <span class="text-muted">{{ comment.date|date('Y-m-d \n H:m') }}</span>
+                    Created at: <span class="text-muted">{{ comment.date|date('Y-m-d \n H:i') }}</span>
                 </div>
                 {% if is_granted('ROLE_ADMIN') %}
                     <div class="col-4 offset-4">
