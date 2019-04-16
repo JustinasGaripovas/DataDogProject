@@ -83,6 +83,13 @@
         </div>
 
 
+        {% block footer %}
+            <footer class="footer">
+                ©2019 DataWolf
+                <img class="footerImage" src={{ asset('uploads/images/placeholder.png') }} />
+            </footer>
+        {% endblock %}
+
         {% block javascripts %}{% endblock %}
     </body>
 </html>

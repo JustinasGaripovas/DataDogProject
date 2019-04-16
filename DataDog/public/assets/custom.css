@@ -4,6 +4,15 @@
     margin: 2rem auto;
 }
 
+.footer{
+    background-color: #3E3F3A;
+    text-align: center;
+    color: #ffffff;
+}
+.footerImage{
+    width: 50px;
+    height: 50px;
+
 #home article{
     margin-top: 3rem;
 }
@@ -17,8 +26,7 @@
         margin:3rem auto;
     }
 }
-
-
+  
 .commentButton{
     background-color: #85169e;
     color: white;
@@ -27,5 +35,4 @@
     margin:0 auto;
     width: 10rem;
     text-align: center;
-
 }
