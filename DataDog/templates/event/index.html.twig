@@ -44,8 +44,8 @@
     <div id="home" class="container">
 
         {% if is_granted('ROLE_ADMIN') %}
-        <a class="container btn d-block btn-outline-primary my-3" href="{{ path('event_new') }}"> New
-            event </a>
+            <a class="btn container d-block btn-outline-primary my-3"  style="width:60%"" href="{{ path('event_new') }}"> New
+                event </a>
         {% endif %}
 
         {% for event in events %}
