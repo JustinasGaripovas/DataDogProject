@@ -25,12 +25,12 @@
                    {% if "ROLE_ADMIN" in user.Roles %}
                         Admin
                     {% else %}
-                        <button type="button" class="btn btn-primary py-1 my-0">Make admin</button>
+                        <a href="{{ path('user_to_admin', {'id': user.id }) }}">Make admin</a>
                     {% endif %}
                 </td>
                 <td>
                     {% if not ( "ROLE_ADMIN" in user.Roles) %}
-                        <button type="button" class="btn btn-primary py-1 my-0">Delete</button>
+                        <a href="{{ path('user_delete', {'id': user.id }) }}">Remove</a>
                     {% endif %}
                 </td>
             </tr>
