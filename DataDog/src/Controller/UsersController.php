@@ -32,7 +32,7 @@ class UsersController extends AbstractController
 
         $this->denyAccessUnlessGranted("ROLE_ADMIN");
         $em = $this->getDoctrine()->getManager();
-        if(in_array("ROLE_ADMIN", $user->getRoles() )) {
+        if(!in_array("ROLE_ADMIN", $user->getRoles() )) {
             $em->remove($user);
         }
         $em->flush();
