@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Category;
 use App\Entity\Event;
+use App\Repository\CategoryRepository;
 use function Sodium\add;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -33,6 +34,9 @@ class EventType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
                 'choice_label' => 'name',
+                'query_builder' => function(CategoryRepository $cr){
+                    return $cr->createQueryBuilder('u')->orderBy('u.name', 'ASC');
+                },
             ])
             ->add('lat',HiddenType::class)
             ->add('lng',HiddenType::class)
