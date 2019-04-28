@@ -55,7 +55,7 @@
 
 
                 <div class="meta">
-                    <p style="float:left"> {{ event.getCreatedAt|date('Y-m-d')  }} </p>
+                    <p style="float:left"> {{ event.getDate|date('Y-m-d')  }} </p>
                     {{ forms.price_format(event) }}
                 </div>
 
@@ -67,6 +67,7 @@
                     {% endif %}
                 </a>
 
+                <p> Paskelbtas: <span class="text-muted"> {{ event.getCreatedAt|date('Y-m-d')  }}</span>  </p>
                 <p> {{ event.description }} </p>
                 <p class="categories">
                     {% for category in event.eventCategories %}

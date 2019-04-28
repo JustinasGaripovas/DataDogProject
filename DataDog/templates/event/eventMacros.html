@@ -2,8 +2,9 @@
 
 {% if is_granted('ROLE_ADMIN') %}
 <div class="event-administration">
-    <a href="{{ path('event_edit', {'id': id}) }}"> Edit </a>
-    <a href="{{ path('event_delete', {'id': id}) }}"> Delete </a>
+    <a class="p-1" href="{{ path('event_edit', {'id': id}) }}"> Edit </a>
+    <a class="p-1" href="{{ path('event_delete', {'id': id}) }}"> Delete </a>
+    <a class="p-1 commentButton" href="{{ path('event_comment', {'id': id}) }}"> Komentuoti </a>
 </div>
 {% endif %}
 

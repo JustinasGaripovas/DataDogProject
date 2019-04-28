@@ -90,6 +90,11 @@ class Event
      */
     private $comments;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $date;
+
     public function __construct()
     {
         $this->eventCategories = new ArrayCollection();
@@ -241,6 +246,18 @@ class Event
                 $comment->setEvent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(?\DateTimeInterface $date): self
+    {
+        $this->date = $date;
 
         return $this;
     }
