@@ -76,6 +76,15 @@ class   EventController extends AbstractController
     }
 
     /**
+     * @Route("/about", name="about")
+     */
+    public function  about(Request $request)
+    {
+        return $this->render('about/index.html.twig', [
+        ]);
+    }
+
+    /**
      * Kai padarai {id} slug, ir i paduodamu funkcijai parametrus irasai Event $event tada jis automatiskai suranda toki event su tokiu id
      * @Route("/event/{id}", name="event_show")
      */
