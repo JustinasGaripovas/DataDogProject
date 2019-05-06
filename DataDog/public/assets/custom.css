@@ -9,9 +9,10 @@
     text-align: center;
     color: #ffffff;
 }
-.footerImage{
+.footerImage {
     width: 50px;
     height: 50px;
+}
 
 #home article{
     margin-top: 3rem;
@@ -36,3 +37,4 @@
     width: 10rem;
     text-align: center;
 }
+

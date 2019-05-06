@@ -1,0 +1,9 @@
+{# templates/emails/registration.html.twig #}
+<h3>Registration reset!</h3>
+
+<p> Password request from {{ email }} </p>
+{# example, assuming you have a route named "login" #}
+
+<a href="{{ url('create_password', {'token': reset_token}) }}">
+    Click here to reset password
+</a>
