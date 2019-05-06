@@ -29,9 +29,6 @@ class EmailController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $user = $entityManager->getRepository(User::class)->findByResetToken($reset_token);
 
-
-        dump($user);
-
         $defaultData = [];
         $form = $this->createFormBuilder($defaultData)
 
@@ -59,7 +56,6 @@ class EmailController extends AbstractController
             $passwordEncoder = $encoder;
 
 
-
             $user->setResetToken(null);
             $user->setPassword(
                 $passwordEncoder->encodePassword(
@@ -69,6 +65,8 @@ class EmailController extends AbstractController
             );
 
             $em->flush();
+
+            return $this->redirectToRoute('event_index');
 
         }
 
@@ -97,9 +95,9 @@ class EmailController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // data is an array with "name", "email", and "message" keys
             $data = $form->getData();
-
-
             $this->initializePasswordReset($data['email'],$mailer);
+
+            return $this->redirectToRoute('event_index');
         }
 
         return $this->render('email/reset.html.twig', [
@@ -117,23 +115,22 @@ class EmailController extends AbstractController
         $user = $entityManager->getRepository(User::class)->findByEmail($email);
 
         if (!$user) {
-            throw $this->createNotFoundException(
-                'No product found for id'
-            );
+            return $this->redirectToRoute('event_index');
         }
 
         $user->setResetToken($reset_token);
         $entityManager->flush();
 
 
-        $message = (new \Swift_Message('Hello Email'))
+        $message = (new \Swift_Message('Password reset request'))
             ->setFrom('datadog.ktu@gmail.com')
             ->setTo($email)
             ->setBody(
                 $this->renderView(
                 // templates/emails/registration.html.twig
                     'email/reset_confirmation_email.html.twig',
-                    ['email' => $email]
+                    ['email' => $email, 'reset_token' => $reset_token]
+
                 ),
                 'text/html'
             )
@@ -142,7 +139,6 @@ class EmailController extends AbstractController
 
         $mailer->send($message);
 
-        //return $this->render(...);
     }
 
     function generateRandomString($length = 15) {
