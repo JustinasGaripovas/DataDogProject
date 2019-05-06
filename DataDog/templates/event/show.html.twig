@@ -58,7 +58,7 @@
             <h1 class="display-3 text-center p-1">{{ event.title }}</h1>
 
             <div style="font-size: 1.1rem">
-            <span>Data : <span class="text-muted">{{ event.getCreatedAt|date('Y-m-d')  }}</span> </span>
+            <span>Event data : <span class="text-muted">{{ event.date|date('Y-m-d')  }}</span> </span>
 
             {{ eventMacro.price_format(event) }}
             </div>
@@ -81,8 +81,6 @@
             </ul>
             </p>
             {{ eventMacro.event_administration(event.id) }}
-
-            <a  href="{{ path('event_comment', {'id': event.id}) }}" class="commentButton p-2 "> Komentuoti </a>
 
         </div>
 
