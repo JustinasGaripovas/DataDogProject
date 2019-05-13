@@ -3,12 +3,20 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\User;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
+/**
+ * Class CategoryController
+ * @package App\Controller
+ */
 class CategoryController extends AbstractController
 {
     /**
@@ -26,7 +34,7 @@ class CategoryController extends AbstractController
     /**
      * @Route("/new/category", name="category_new")
      */
-    public function newCategory(Request $request)
+    public function newCategory(Request $request, Category $category)
     {
         $this->denyAccessUnlessGranted("ROLE_ADMIN");
 
@@ -47,6 +55,34 @@ class CategoryController extends AbstractController
             'category' => $category,
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/category/subscribe", name="category_subscribe")
+     */
+    public function subscribeToCategory(Request $request, Security $security, CategoryRepository $categoryRepository)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $categoryId = $request->request->get('categoryId');
+
+        $category = $categoryRepository->findOneById($categoryId);;
+
+        if ($category == null) {
+            return new JsonResponse(['status' => '01', 'message' => 'Kategorija nerasta!']);
+        }
+
+        $user = $security->getToken()->getUser();
+
+        if ($user->getSubscribedCategories()->contains($category)) {
+            $user->removeSubscribedCategory($category);
+            $this->getDoctrine()->getManager()->flush();
+            return new JsonResponse(['status'=>'00', 'message' => 'Sėkminga atšaukta premenuracija','button'=>"Subscribe"]);
+        }else{
+            $user->addSubscribedCategory($category);
+            $this->getDoctrine()->getManager()->flush();
+            return new JsonResponse(['status'=>'00', 'message' => 'Sėkminga premenuracija','button'=>"Unsubscribe"]);
+        }
     }
 
     /**
