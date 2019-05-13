@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -58,6 +60,16 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $reset_token;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Category", inversedBy="users")
+     */
+    private $subscribed_categories;
+
+    public function __construct()
+    {
+        $this->subscribed_categories = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -152,6 +164,32 @@ class User implements UserInterface
     public function setResetToken(?string $reset_token): self
     {
         $this->reset_token = $reset_token;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Category[]
+     */
+    public function getSubscribedCategories(): Collection
+    {
+        return $this->subscribed_categories;
+    }
+
+    public function addSubscribedCategory(Category $subscribedCategory): self
+    {
+        if (!$this->subscribed_categories->contains($subscribedCategory)) {
+            $this->subscribed_categories[] = $subscribedCategory;
+        }
+
+        return $this;
+    }
+
+    public function removeSubscribedCategory(Category $subscribedCategory): self
+    {
+        if ($this->subscribed_categories->contains($subscribedCategory)) {
+            $this->subscribed_categories->removeElement($subscribedCategory);
+        }
 
         return $this;
     }

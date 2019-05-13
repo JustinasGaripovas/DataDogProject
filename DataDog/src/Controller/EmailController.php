@@ -82,8 +82,6 @@ class EmailController extends AbstractController
      */
     public function resetRequest(Request $request, \Swift_Mailer $mailer)
     {
-
-
         $defaultData = [];
         $form = $this->createFormBuilder($defaultData)
             ->add('email', EmailType::class)

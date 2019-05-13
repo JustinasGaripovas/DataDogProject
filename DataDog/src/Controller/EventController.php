@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Comment;
 use App\Entity\Event;
+use App\Entity\User;
 use App\Form\EventCommentType;
 use App\Form\EventType;
+use App\Repository\CategoryRepository;
 use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,6 +21,15 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class   EventController extends AbstractController
 {
+    private $mailer;
+    private $categoryRepository;
+
+    public function __construct(\Swift_Mailer $mailer,CategoryRepository $categoryRepository)
+    {
+        $this->mailer = $mailer;
+        $this->categoryRepository = $categoryRepository;
+    }
+
     /**
      * @Route("/", name="event_index")
      */
@@ -31,9 +43,18 @@ class   EventController extends AbstractController
     }
 
     /**
+     * @Route("/about", name="about")
+     */
+    public function  about(Request $request)
+    {
+        return $this->render('about/index.html.twig', [
+        ]);
+    }
+
+    /**
      * @Route("/newevent", name="event_new")
      */
-    public function newEvent(Request $request)
+    public function newEvent(Request $request,  \Swift_Mailer $mailer)
     {
         $this->denyAccessUnlessGranted("ROLE_ADMIN");
 
@@ -48,22 +69,25 @@ class   EventController extends AbstractController
             $em = $this->getDoctrine()->getManager();
 
             if($event->getImage()){
-            $file = $event->getImage();
+                $file = $event->getImage();
 
-            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
-            try {
-                $file->move(
-                    $this->getParameter('images_directory'),
-                    $fileName
-                );
-            } catch (FileException $e) {
-                // ... handle exception if something happens during file upload
-            }
+                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+                try {
+                    $file->move(
+                        $this->getParameter('images_directory'),
+                        $fileName
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
 
-            $event->setImage($fileName);}
+                $event->setImage($fileName);}
+
 
             $em->persist($event);
             $em->flush();
+
+            $this->notifySubscribers($event->getEventCategories(),$event->getId(),$mailer);
 
 
             return $this->redirectToRoute('event_index');
@@ -75,13 +99,32 @@ class   EventController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/about", name="about")
-     */
-    public function  about(Request $request)
+    private function notifySubscribers($categories,$eventId, \Swift_Mailer $mailer)
     {
-        return $this->render('about/index.html.twig', [
-        ]);
+
+        foreach ($categories as $category)
+        {
+            foreach ($category->getUsers() as $user)
+            {
+               // dump("sending to {$user->getEmail()} and {$eventId}");
+
+                $message = (new \Swift_Message('New event !'))
+                    ->setFrom('datadog.ktu@gmail.com')
+                    ->setTo($user->getEmail())
+                    ->setBody(
+                        $this->renderView(
+                        // templates/emails/registration.html.twig
+                            'email/category_update_email.html.twig',
+                            ['category' => $category->getName(), 'eventId' => (int)$eventId]
+
+                        ),
+                        'text/html'
+                    )
+                ;
+
+                $this->mailer->send($message);
+            }
+        }
     }
 
     /**

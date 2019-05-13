@@ -2,6 +2,54 @@
 
 {% block title %}KTU NOW{% endblock %}
 
+{% block javascripts %}
+    <script>
+        
+        function subscribeToCategory($id,$button) {
+
+            let ajaxSendFile = $.ajax({
+                url: '{{ path('category_subscribe') }}',
+                type: 'POST',
+                data: {categoryId:$id},
+                dataType: 'json',
+                async: false,
+            });
+
+            ajaxSendFile.done(function (data) {
+
+                $($button).html = '';
+                $($button).html(data['button']);
+
+                alertBox(data['message'],(data['status'] === "00"));
+
+
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+
+                alertBox("Klaida", false);
+
+            });
+        }
+
+        function alertBox(text, isSuccess) {
+
+            $("#alert-box").removeClass('alert-success').removeClass('alert-danger');
+
+            if(isSuccess === true)
+            {
+                $("#alert-box").addClass('alert-success');
+            }else{
+                $("#alert-box").addClass('alert-danger');
+            }
+
+            $("#alert-box").text(text);
+            $("#alert-box").fadeIn();
+            window.setTimeout(function () {
+                $("#alert-box").fadeOut(300)
+            }, 2000);
+        }
+    </script>
+{% endblock %}
+
 {% block body %}
     <div class="container">
         {% if is_granted('ROLE_ADMIN') %}
@@ -15,7 +63,23 @@
                     <a href="{{ path('category_delete', {'id': category.id}) }}" style="float: right"> Delete </a>
                     <a href="{{ path('category_edit', {'id': category.id}) }}" style="float: right; margin-right: 1em"> Edit </a>
                 {% endif %}
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    {#   IF IS ALREADY SUBSCRIBLED UNSUBSCRIBLE
+                    {% if category in app.user.getSubscribedCategories %}
+                        <button onclick="subscribeToCategory({{ category.id }}, 0, this)" style="float: right; margin-right: 1em"> Unsubscribe </button>
+                    {% else %}
+                        <button onclick="subscribeToCategory({{ category.id }}, 1, this)" style="float: right; margin-right: 1em"> Subscribe </button>
+                    {% endif %}
+                    #}
+                    <button onclick="subscribeToCategory({{ category.id }}, this)" style="float: right; margin-right: 1em"> Subscribe </button>
+
+                {% endif %}
+
             </div>
         {% endfor %}
     </div>
+
+    <!-- The Custom Alert -->
+    <div style="left: 25%;position: fixed;width: 50% ;z-index: 1400; top: 2%; text-align: center;display: none;" id="alert-box" class="alert alert-success" data-alert="alert">{% trans %}Success save{% endtrans %}</div>
+
 {% endblock %}
