@@ -34,7 +34,7 @@ class CategoryController extends AbstractController
     /**
      * @Route("/new/category", name="category_new")
      */
-    public function newCategory(Request $request, Category $category)
+    public function newCategory(Request $request)
     {
         $this->denyAccessUnlessGranted("ROLE_ADMIN");
 
