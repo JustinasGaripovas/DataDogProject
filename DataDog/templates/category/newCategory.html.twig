@@ -3,28 +3,7 @@
 {% block title %} KTU NOW | New category{% endblock %}
 
 {% block body %}
-{#
-    {{ form_start(form) }}
 
-    <div class="jumbotron">
-
-
-        {{ form_errors(form) }}
-        {% for child in form if not child.rendered %}
-            <div class="form-group row">
-                {{ form_label(child, null, { 'label_attr': {'class': 'col-sm-2 col-form-label' } }) }}
-                <div class="col-sm-10">
-                    {{ form_widget(child,{ 'attr': {'class': 'form-control' } }) }}
-                </div>
-            </div>
-        {% endfor %}
-
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-    {{ form_end(form) }}
-
-#}
     <div class="container my-3 py-2">
         <h1 style="text-align: center;" class="my-2">Kategorijos kūrimas</h1>
 

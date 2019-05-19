@@ -47,7 +47,6 @@ class UsersController extends AbstractController
 
         $this->denyAccessUnlessGranted("ROLE_ADMIN");
         $em = $this->getDoctrine()->getManager();
-        //$em->remove($user);
         $user->SetRoles(array('ROLE_ADMIN'));
         $em->flush();
         return $this->redirectToRoute('users_index');
