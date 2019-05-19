@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Event;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -67,6 +68,40 @@ class EventRepository extends ServiceEntityRepository
         return $qb
             ->orderBy('e.created_at', 'DESC')
             ->getQuery()
-            ->getResult();
+            ->getResult()
+            ;
     }
+
+    public function findById($id)
+    {
+        try {
+            return $this->createQueryBuilder('e')
+                ->andWhere('e.id = :id')
+                ->setParameter('id', $id)
+                ->getQuery()
+                ->getOneOrNullResult();
+        } catch (NonUniqueResultException $e) {
+            dump($e);
+        }
+    }
+
+
+    // /**
+    //  * @return Event[] Returns an array of Event objects
+    //  */
+    /*
+    public function findByExampleField($value)
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.exampleField = :val')
+            ->setParameter('val', $value)
+            ->orderBy('e.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+
+        
+    }
+    */
 }

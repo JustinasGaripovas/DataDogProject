@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
@@ -64,7 +65,12 @@ class CategoryController extends AbstractController
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
-        $categoryId = $request->request->get('categoryId');
+        //  xml request validation
+        if ($request->isXmlHttpRequest() || $request->query->get('showJson') == 1) {
+            $categoryId = $request->request->get('categoryId');
+        } else {
+            throw new NotFoundHttpException("Ajax only request.");
+        }
 
         $category = $categoryRepository->findOneById($categoryId);;
 

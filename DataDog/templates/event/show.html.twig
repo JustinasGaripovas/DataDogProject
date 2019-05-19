@@ -24,6 +24,7 @@
 
 {% block javascripts %}
     <script>
+
         $(document).ready(function () {
 
             var my_lat = {{ event.lat ? event.lat  : 54.897222 }};
@@ -38,20 +39,76 @@
                 accessToken: 'your.mapbox.access.token'
             }).addTo(mymap);
 
+            //  Tikram map, kur bus visi renginiai, cia bus for-iukas
+            var marker = L.marker([my_lat, my_lon]).addTo(mymap).bindPopup(" " +
+                "<div class='container-fluid' style=''>" +
+                "<p class='my-0'>Renginys vyksta čia.</p>" +
+                "</div>" +
+                "");
 
-            var marker = L.marker([my_lat, my_lon]).addTo(mymap);
         });
+
+
+        function ajaxCreateComment() {
+
+            var text = $("#comment_textarea").val();
+
+            var ajaxDVS = $.ajax({
+                url: '{{ path('event_new_comment') }}',
+                type: 'POST',
+                data: {eventId: {{ event.id }}, text: text},
+                dataType: 'json',
+                async: false,
+            });
+
+            ajaxDVS.done(function (data) {
+                console.log(data);
+
+                if(data['status']=="00")
+                {
+                    alertBox(data['message'], true);
+                    window.location.reload();
+                }else{
+                    alertBox(data['message'], false);
+                }
+
+
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus);
+                console.log(errorThrown);
+                alertBox("Ryšio klaida.", false);
+            });
+        }
+
+
+        function alertBox(text, isSuccess) {
+
+            $("#alert-box").removeClass('alert-success').removeClass('alert-danger');
+
+            if(isSuccess === true)
+            {
+                $("#alert-box").addClass('alert-success');
+            }else{
+                $("#alert-box").addClass('alert-danger');
+            }
+
+            $("#alert-box").text(text);
+            $("#alert-box").fadeIn();
+            window.setTimeout(function () {
+                $("#alert-box").fadeOut(300)
+            }, 2000);
+        }
     </script>
 {% endblock %}
 
 {% block body %}
-    <div class="container my-2 py-3">
+    <div class="container my-4 py-2">
         <div class="jumbotron">
 
             <h1 class="display-3 text-center p-1">{{ event.title }}</h1>
 
             <div style="font-size: 1.1rem">
-            <span>Event data : <span class="text-muted">{{ event.date|date('Y-m-d')  }}</span> </span>
+            <span>Data : <span class="text-muted">{{ event.date|date('Y-m-d')  }}</span> </span>
 
             {{ eventMacro.price_format(event) }}
             </div>
@@ -74,7 +131,6 @@
             </ul>
             </p>
             {{ eventMacro.event_administration(event.id) }}
-
         </div>
 
         <br>
@@ -82,6 +138,22 @@
         <div class="my-1 py-1 " id="map"></div>
 
         <br>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <div id="comments">
+            <h1 align="center">Komentuoti</h1>
+            <div class="row my-2 py-3 align-items-center justify-content-center text-center">
+                <div class="col-10">
+                    <textarea class="form-control" id="comment_textarea"></textarea>
+                </div>
+                <div class="col-12 my-2">
+                    <button class="p-1 commentButton btn btn-primary" onclick="ajaxCreateComment()">Komentuoti</button>
+
+                </div>
+            </div>
+        </div>
+        <br>
+        {% endif %}
+
 
         <h3>Komentarai:</h3>
 
@@ -93,7 +165,11 @@
             </div>
     </div>
 
+    <br>
+    <br>
 
+    <!-- Custom alert box -->
+    <div style="left: 25%;position: fixed;width: 50% ;z-index: 1400; top: 2%; text-align: center;display: none;" id="alert-box" class="alert alert-success" data-alert="alert">{% trans %}Success save{% endtrans %}</div>
 
 
 
