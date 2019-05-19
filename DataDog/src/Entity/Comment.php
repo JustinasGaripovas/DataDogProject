@@ -18,7 +18,7 @@ class Comment
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=500)
      * @Assert\NotBlank(message="Komentaras negali būti tuščias")
      * @Assert\Length(
      *      max = 255,

@@ -64,15 +64,7 @@
                     <a href="{{ path('category_edit', {'id': category.id}) }}" style="float: right; margin-right: 1em"> Edit </a>
                 {% endif %}
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    {#   IF IS ALREADY SUBSCRIBLED UNSUBSCRIBLE
-                    {% if category in app.user.getSubscribedCategories %}
-                        <button onclick="subscribeToCategory({{ category.id }}, 0, this)" style="float: right; margin-right: 1em"> Unsubscribe </button>
-                    {% else %}
-                        <button onclick="subscribeToCategory({{ category.id }}, 1, this)" style="float: right; margin-right: 1em"> Subscribe </button>
-                    {% endif %}
-                    #}
                     <button onclick="subscribeToCategory({{ category.id }}, this)" style="float: right; margin-right: 1em"> Subscribe </button>
-
                 {% endif %}
 
             </div>

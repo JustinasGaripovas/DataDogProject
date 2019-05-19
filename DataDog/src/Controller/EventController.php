@@ -14,13 +14,17 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class   EventController extends AbstractController
 {
+    const MAX_COMMENT_LENGTH = 500;
+
     private $mailer;
     private $categoryRepository;
 
@@ -211,38 +215,50 @@ class   EventController extends AbstractController
     }
 
     /**
-     * @Route("/event/{id}/comment", name="event_comment")
+     * @Route("/event/add/comment", name="event_new_comment")
      */
-    public function newComment(Request $request, Event $event, TokenStorageInterface $tokenStorage)
+    public function newComment(Request $request, TokenStorageInterface $tokenStorage, EventRepository $eventRepository)
     {
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')==false)
+        {
+            return new JsonResponse(["status"=>"03","message"=>"Reikia būti prisijungusiam."]);
+        }
 
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        if ($request->isXmlHttpRequest() || $request->query->get('showJson') == 1) {
+            $eventId = $request->request->get('eventId');
+            $event = $eventRepository->findById($eventId);
+            $text = $request->request->get('text');
+        } else {
+            return new JsonResponse(["status"=>"04","message"=>"Ajax only."]);
+        }
+
+        if(empty($text)) {
+            return new JsonResponse(["status"=>"01","message"=>"Nėra žinutės."]);
+        }elseif(strlen($text) >= self::MAX_COMMENT_LENGTH){
+            return new JsonResponse(["status"=>"01","message"=>"Žinutė per ilga. (max ". self::MAX_COMMENT_LENGTH ." simbolių)"]);
+        }
+        if(empty($event)) {
+            return new JsonResponse(["status"=>"02","message"=>"Nėra tokio renginio."]);
+        }
+
         $comment = new Comment();
-        $form = $this->createForm(EventCommentType::class, $comment);
-        $form->handleRequest($request);
         $token = $tokenStorage->getToken();
         $user = $token->getUser();
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        $comment->setDate(new \DateTime('now'));
+        $comment->setAuthor($user->getUsername());
+        $comment->setText($text);
+        $comment->setEvent($event);
+        $em = $this->getDoctrine()->getManager();
 
-            $comment->setDate(new \DateTime('now'));
-            $comment->setAuthor($user->getUsername());
-            $comment->setEvent($event);
-            $em = $this->getDoctrine()->getManager();
+        $em->persist($comment);
+        $em->flush();
 
-            $em->persist($comment);
-            $em->flush();
+        $event->addComment($comment);
+        $em->flush();
 
-            $event->addComment($comment);
-            $em->flush();
+        return new JsonResponse(["status"=>"00","message"=>"Sėkmingai išsaugotas komentaras."]);
 
-            return $this->redirectToRoute('event_show', ['id' => $event->getId()]);
-        }
-
-        return $this->render('event/new_comment.html.twig', [
-            'comment' => $comment,
-            'form' => $form->createView()
-        ]);
     }
 
     /**
