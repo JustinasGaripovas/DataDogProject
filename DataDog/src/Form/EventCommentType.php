@@ -13,7 +13,7 @@ class EventCommentType extends AbstractType
     {
         $builder
             ->add('text',null,[
-                'label' => 'Komentaras'
+                'label' => 'Comment'
             ])
         ;
     }

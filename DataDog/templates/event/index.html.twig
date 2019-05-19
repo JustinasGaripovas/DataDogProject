@@ -8,7 +8,7 @@
     <div id="home" class="container">
 
         {% if is_granted('ROLE_ADMIN') %}
-            <a class="btn container d-block btn-outline-primary my-3"  style="width:60%"" href="{{ path('event_new') }}"> New
+            <a class="btn container d-block btn-outline-primary my-3"  style="width:60%" href="{{ path('event_new') }}"> New
                 event </a>
         {% endif %}
 
@@ -16,11 +16,11 @@
         <table class="table table-borderless table-sm">
             <tbody>
             <tr>
-                <td>Pavadinimas:</td>
-                <td>Kategorija:</td>
-                <td>Data nuo:</td>
-                <td>Data iki:</td>
-                <td>Kaina iki:</td>
+                <td>Title:</td>
+                <td>Category:</td>
+                <td>Date from:</td>
+                <td>Date to:</td>
+                <td>Max price:</td>
             </tr>
             <tr>
                 <td>{{ form_widget(filterForm.title) }}</td>
@@ -28,7 +28,7 @@
                 <td>{{ form_widget(filterForm.earliestDate) }}</td>
                 <td>{{ form_widget(filterForm.latestDate) }}</td>
                 <td>{{ form_widget(filterForm.maxPrice) }}</td>
-                <td><button type="submit" class="btn btn-primary">Ieškoti</button></td>
+                <td><button type="submit" class="btn btn-primary"> Filter </button></td>
             </tr>
             </tbody>
         </table>

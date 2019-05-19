@@ -28,28 +28,44 @@
             animation-iteration-count: infinite;
             animation-timing-function: linear;
         }
+
         @-ms-keyframes spin {
-            from { -ms-transform: rotate(0deg); }
-            to { -ms-transform: rotate(360deg); }
-        }
-        @-moz-keyframes spin {
-            from { -moz-transform: rotate(0deg); }
-            to { -moz-transform: rotate(360deg); }
-        }
-        @-webkit-keyframes spin {
-            from { -webkit-transform: rotate(0deg); }
-            to { -webkit-transform: rotate(360deg); }
-        }
-        @keyframes spin {
             from {
-                transform:rotate(0deg);
+                -ms-transform: rotate(0deg);
             }
             to {
-                transform:rotate(360deg);
+                -ms-transform: rotate(360deg);
             }
         }
 
-        #side-panel span{
+        @-moz-keyframes spin {
+            from {
+                -moz-transform: rotate(0deg);
+            }
+            to {
+                -moz-transform: rotate(360deg);
+            }
+        }
+
+        @-webkit-keyframes spin {
+            from {
+                -webkit-transform: rotate(0deg);
+            }
+            to {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #side-panel span {
             font-size: 1.6rem;
         }
 
@@ -60,10 +76,11 @@
 
         <div class="row my-5 p3">
             <!-- Header -->
-            <div class="col-12" >
+            <div class="col-12">
                 <div>
-                    <span style="vertical-align: middle; font-size: 2rem">- Misija  - </span>
-                    <img style="vertical-align: middle; float: right; padding-right: 50px;" id="astro" src={{ asset('uploads/images/astro.png') }} />
+                    <span style="vertical-align: middle; font-size: 2rem">- Mission  - </span>
+                    <img style="vertical-align: middle; float: right; padding-right: 50px;" id="astro"
+                         src={{ asset('uploads/images/astro.png') }}/>
                     <hr>
                 </div>
             </div>
@@ -73,27 +90,30 @@
                 <!-- Main panel -->
                 <div class="col-md-8 ">
                     <div class="m-3 p-5" style="border: solid 1px black">
-                        Sukurti patogia ir paprasta vietą dalintis KTU ar KTU universiteto bendruomenės sukurtais renginiais.
+                        Our mission here in DataWolf headquarters is to create an unified system for all Kaunas
+                        Technology University members, so all of its community can discover and share the latest events
+                        and news about the university's life. We aim to provide the most pleasant and robust experience,
+                        and we hope that you will find this page helpful.
                     </div>
                 </div>
                 <!-- Side panels -->
                 <div id="side-panel" class="col-md-4" style="border: solid 1px black">
 
                     <div class="my-2 p-2">
-                        <span>Standartai</span>
+                        <span>Our values:</span>
                         <hr style="padding: 0px; margin: 0px;">
                     </div>
 
                     <div class="my-2 p-2">
-                        <i class="fas fa-caret-right fa-2x"></i>   <span>Paprastumas</span>
+                        <i class="fas fa-caret-right fa-2x"></i> <span>Simplicity</span>
                     </div>
 
                     <div class="my-2 p-2">
-                        <i class="fas fa-caret-right fa-2x"></i>   <span>Patogumas</span>
+                        <i class="fas fa-caret-right fa-2x"></i> <span>Convenience</span>
                     </div>
 
                     <div class="my-2 p-2">
-                        <i class="fas fa-caret-right fa-2x"></i>   <span>Greitumas </span>
+                        <i class="fas fa-caret-right fa-2x"></i> <span>Responsiveness </span>
                     </div>
 
                 </div>
