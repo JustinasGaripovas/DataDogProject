@@ -30,7 +30,6 @@
             $('#event_lat').val(my_lat);
             $('#event_lng').val(my_lon);
 
-            // initialize the map
             var mymap = L.map('map').setView([my_lat, my_lon], 13);
             L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGFpc2FkbWluIiwiYSI6ImNqcjk3ZWh0djAxemo0NW15Zm9pb3BiNHAifQ.UM9_gDRuLxs1mGvPSjSsHQ', {
                 attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -40,8 +39,6 @@
                 accessToken: 'your.mapbox.access.token'
             }).addTo(mymap);
 
-
-            //  Tikram map, kur bus visi renginiai, cia bus for-iukas
             var marker = L.marker([my_lat, my_lon]).addTo(mymap);
 
             mymap.on('click', function (e) {
@@ -54,7 +51,7 @@
                 $('#event_lat').val(e.latlng['lat']);
                 $('#event_lng').val(e.latlng['lng']);
 
-                console.log(e.latlng); // e is an event object (MouseEvent in this case)
+                console.log(e.latlng);
             });
         });
     </script>
@@ -64,11 +61,6 @@
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
-
-    {# <div class="container">
-         {{ form(form) }}
-         <button type="submit" class="btn btn-primary">Naujas renginys</button>
-     <br>#}
 
     <div class="container my-3 py-2">
         <h1 style="text-align: center;" class="my-2">Sukurti renginį</h1>

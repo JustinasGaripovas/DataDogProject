@@ -23,10 +23,49 @@ class EventRepository extends ServiceEntityRepository
     /*
      * @return Event[] Returns newest events by array
      */
-    public  function findNewest(){
+    public  function findNewest(array $requestParameters){
 
-        return $this->createQueryBuilder('e')
+        $qb = $this->createQueryBuilder('e');
 
+        if($requestParameters)
+        {
+            $values = $requestParameters['filter_event'];
+            if($values['title'])
+            {
+                $qb
+                    ->andWhere('e.title LIKE :searchTitle')
+                    ->setParameter('searchTitle', '%'.$values['title'].'%');
+            }
+            if($values['category'])
+            {
+                //->where(e.eventCategories.)
+                $qb
+                    ->innerJoin('e.eventCategories', 'c')
+                    ->andWhere('c.id = :category')
+                    ->setParameter('category', $values['category']);
+            }
+            if($values['earliestDate'])
+            {
+                $qb
+                    ->andWhere('e.date > :earlDate')
+                    ->setParameter('earlDate', $values['earliestDate']);
+            }
+            if($values['latestDate'])
+            {
+                $qb
+                    ->andWhere('e.date <= :latDate')
+                    ->setParameter('latDate', $values['latestDate']);
+            }
+            if($values['maxPrice'])
+            {
+                $qb
+                    ->andWhere('e.price <= :price')
+                    ->setParameter('price', $values['maxPrice']*100);
+            }
+
+        }
+
+        return $qb
             ->orderBy('e.created_at', 'DESC')
             ->getQuery()
             ->getResult()
@@ -61,8 +100,8 @@ class EventRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+
+        
     }
     */
-
-
 }
