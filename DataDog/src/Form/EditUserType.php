@@ -17,17 +17,17 @@ class EditUserType extends AbstractType
     {
         $builder
             ->add('username',null,[
-                'label' => 'Vardas'
+                'label' => 'Name'
             ])
             ->add('oldPassword', PasswordType::class, array(
                 'mapped' => false,
-                'label' => 'Senas slaptažodis'
+                'label' => 'Old password'
             ))
             ->add('password', RepeatedType::class, array(
-                'first_options'  => ['label' => 'Naujas slaptažodis'],
-                'second_options' => ['label' => 'Pakartoti naują slaptažodį'],
+                'first_options'  => ['label' => 'New password'],
+                'second_options' => ['label' => 'Repeat new password'],
                 'type' => PasswordType::class,
-                'invalid_message' => 'Nesutinka slaptažodžiai',
+                'invalid_message' => 'Password don\'t match',
                 'options' => array(
                     'attr' => array(
                         'class' => 'password-field'
@@ -37,7 +37,7 @@ class EditUserType extends AbstractType
                 'mapped' => false
             ))
             ->add('email',EmailType::class,[
-                'label' => 'Elektroninis paštas'
+                'label' => 'E-mail'
             ])
         ;
     }
