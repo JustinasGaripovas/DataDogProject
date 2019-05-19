@@ -28,11 +28,10 @@ class EventType extends AbstractType
             ))
             ->add('excerpt')
             ->add('description')
-            ->add('date', DateType::class, [
-                'placeholder' => [
-                    'year' => date("Y"), 'month' => date("m"), 'day' => date("d"),
-                ]
-            ])
+            ->add('date', DateType::class, array(
+                'data' => new \DateTime(),
+            )
+            )
             ->add('price', IntegerType::class)
             ->add('eventCategories', EntityType::class, [
                 'class' => Category::class,
