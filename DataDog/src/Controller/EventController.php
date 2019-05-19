@@ -8,6 +8,7 @@ use App\Entity\Event;
 use App\Entity\User;
 use App\Form\EventCommentType;
 use App\Form\EventType;
+use App\Form\FilterEventType;
 use App\Repository\CategoryRepository;
 use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManager;
@@ -35,10 +36,13 @@ class   EventController extends AbstractController
      */
     public function index(EventRepository $repository, Request $request)
     {
-        $events = $repository->findNewest();
+        $form = $this->createForm(FilterEventType::class);
+        $requestParameters = $request->request->all();
+        $events = $repository->findNewest($requestParameters);
 
         return $this->render('event/index.html.twig', [
             'events' => $events,
+            'filterForm' => $form->createView(),
         ]);
     }
 
@@ -77,12 +81,9 @@ class   EventController extends AbstractController
                         $this->getParameter('images_directory'),
                         $fileName
                     );
-                } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
-                }
+                } catch (FileException $e) {}
 
                 $event->setImage($fileName);}
-
 
             $em->persist($event);
             $em->flush();
@@ -106,9 +107,7 @@ class   EventController extends AbstractController
         {
             foreach ($category->getUsers() as $user)
             {
-               // dump("sending to {$user->getEmail()} and {$eventId}");
-
-                $message = (new \Swift_Message('New event !'))
+               $message = (new \Swift_Message('New event !'))
                     ->setFrom('datadog.ktu@gmail.com')
                     ->setTo($user->getEmail())
                     ->setBody(
@@ -133,8 +132,6 @@ class   EventController extends AbstractController
      */
     public function showEvent(Request $request, Event $event)
     {
-        dump($event);
-
         return $this->render('event/show.html.twig', [
             'event' => $event,
         ]);
@@ -159,7 +156,6 @@ class   EventController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
-            //------------------
             if($event->getImage()){
             $file = $event->getImage();
 
@@ -169,17 +165,13 @@ class   EventController extends AbstractController
                     $this->getParameter('images_directory'),
                     $fileName
                 );
-            } catch (FileException $e) {
-                // ... handle exception if something happens during file upload
-            }
+            } catch (FileException $e) {}
 
             $event->setImage($fileName);
             }
             else{
                 $event->setImage($oldImage);
             }
-
-            //--------------------
 
             $em->flush();
             return $this->redirectToRoute('event_index');

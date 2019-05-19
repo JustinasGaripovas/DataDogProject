@@ -12,6 +12,29 @@
                 event </a>
         {% endif %}
 
+        {{ form_start(filterForm) }}
+        <table class="table table-borderless table-sm">
+            <tbody>
+            <tr>
+                <td>Pavadinimas:</td>
+                <td>Kategorija:</td>
+                <td>Data nuo:</td>
+                <td>Data iki:</td>
+                <td>Kaina iki:</td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(filterForm.title) }}</td>
+                <td>{{ form_widget(filterForm.category) }}</td>
+                <td>{{ form_widget(filterForm.earliestDate) }}</td>
+                <td>{{ form_widget(filterForm.latestDate) }}</td>
+                <td>{{ form_widget(filterForm.maxPrice) }}</td>
+                <td><button type="submit" class="btn btn-primary">Ieškoti</button></td>
+            </tr>
+            </tbody>
+        </table>
+        {{ form_rest(filterForm) }}
+        {{ form_end(filterForm) }}
+
         {% for event in events %}
             <article>
                 <a href="{{ path('event_show', {'id': event.id}) }}">
