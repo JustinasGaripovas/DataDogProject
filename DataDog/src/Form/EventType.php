@@ -30,7 +30,7 @@ class EventType extends AbstractType
             ->add('description')
             ->add('date', DateType::class, [
                 'placeholder' => [
-                    'year' => date("Y"), 'month' => date("m"), 'day' => date("d"),
+                    'year' => 'Year', 'month' => 'Month', 'day' => 'Day',
                 ]
             ])
             ->add('price', IntegerType::class)
