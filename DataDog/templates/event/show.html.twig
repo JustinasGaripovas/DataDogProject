@@ -43,10 +43,9 @@
             //  Tikram map, kur bus visi renginiai, cia bus for-iukas
             var marker = L.marker([my_lat, my_lon]).addTo(mymap).bindPopup(" " +
                 "<div class='container-fluid' style=''>" +
-                     "<img class='center-image py-2' src='https://renginiai.kasvyksta.lt/uploads/events/15067/big/erikas-ov%C4%8Darenko-1024x683.jpg' class=\"w3-round\" alt=\"Norway\"> " +
-                     "<p class='my-0'>Tai yra nuotrauka su mapu :*</p>" +
+                     "<p class='my-0'>Renginys vyksta čia.</p>" +
                 "</div>" +
-                "").openPopup();
+                "");
         });
     </script>
 {% endblock %}
@@ -99,6 +98,9 @@
                 {% endfor %}
             </div>
     </div>
+
+    <br>
+    <br>
 
 
 

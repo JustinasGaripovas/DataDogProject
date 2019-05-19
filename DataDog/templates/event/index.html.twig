@@ -53,7 +53,6 @@
                 <a href="{{ path('event_show', {'id': event.id}) }}">
                     <h2 style="font-weight: bold"> {{ event.title }} </h2></a>
 
-
                 <div class="meta">
                     <p style="float:left"> {{ event.getDate|date('Y-m-d')  }} </p>
                     {{ forms.price_format(event) }}
@@ -75,8 +74,12 @@
                     {% endfor %}
                 </p>
 
-                {{ forms.event_administration(event.id) }}
-
+                {% if is_granted('ROLE_ADMIN') %}
+                <div class="event-administration">
+                    <a class="p-1" href="{{ path('event_edit', {'id': event.id}) }}"> Edit </a>
+                    <a class="p-1" href="{{ path('event_delete', {'id': event.id}) }}"> Delete </a>
+                </div>
+                {% endif %}
             </article>
 
 
